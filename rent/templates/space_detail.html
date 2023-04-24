@@ -1,0 +1,166 @@
+{% extends 'base_site.html' %}
+
+{% block context %}
+    {% load static %}
+    <div class='row'>
+        <div class='col-sm-4' >
+            <div id='calendarBlock' class='material-theme' hidden='hidden'>
+                <div id='rentCalendar'></div>
+                <div>
+                    <table class='table table-bordered col-sm-4'>
+                        <tr>
+                            <td>
+                                Instructions:           
+                                {% for booking in bookings %}
+                                "{{ booking.date }}",
+                                {% endfor %}                
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class='col-sm-4' >
+            <table class='table table-bordered tbale-sm'>
+                <tr>
+                    <td class='text-center'>
+                        <h4>{{ space.name }}</h4>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="{% static space.photo %}" alt="Photo" class='rounded' width="100%" height="auto" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>{{ space.address }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Size : {{ space.size }} sq. ft.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Credits Required : {{ space.coupon }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button id='rentButton' class='btn btn-primary btn-block' value='Rent'>Rent</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class='col-sm-4'>
+            <table id='rentTable' class='table text-center' hidden='hidden'>
+                <thead class='thead-light'>
+                    <tr>
+                        <th>Selected Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div id='rentList'></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button id='confirmButton' class='btn btn-primary'>Confirm</button>
+                            <button id='resetButton' class='btn btn-primary'>Reset</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var calendar = document.getElementById('rentCalendar');
+        var calendarBlock = document.getElementById('calendarBlock');
+        var rentButton = document.getElementById('rentButton');
+        var confirmButton = document.getElementById('confirmButton');
+        var resetButton = document.getElementById('resetButton');
+        var rentTable = document.getElementById('rentTable');
+        var rentList = document.getElementById('rentList');
+        var min = new Date("{{ today }}");
+        var max = new Date("{{ endday }}");
+        var myCalendar = jsCalendar.new({ target: calendar, min: min, max: max });
+        const booked = [
+            {% for booking in bookings %}
+                new Date("{{ booking.date }}"),
+            {% endfor %}
+        ];
+
+        myCalendar.onDateClick(function(event, date) {
+            if ((date > min) && (date <= max)) {
+                for (var i=0; i<booked.length; i++) {
+                    if (date.getTime() == booked[i].getTime())
+                        return;
+                    else if (date < booked[i])
+                        break;
+                }
+                if (myCalendar.isSelected(date))
+                    myCalendar.unselect(date);
+                else
+                    myCalendar.select(date);
+                let selectedList = myCalendar.getSelected({sort: "asc", type: "YYYY-MM-DD"});                
+                var text = "";
+                for (let i=0; i < selectedList.length; i++) {
+                    text += selectedList[i] + "<br>";
+                }
+                if (selectedList.length > 0)
+                    rentTable.removeAttribute('hidden');
+                else 
+                    rentTable.setAttribute('hidden', 'hidden');
+                rentList.innerHTML = text;
+            }
+        });
+
+        myCalendar.onDateRender(function(date, calendar, info) {            
+            if ((date < min) || (date > max)) {
+                calendar.style.color = "#ffffff";
+                return;
+            } else if (myCalendar.isSelected(date)) 
+                calendar.style.color = '#ff0000';
+            else {
+                for (var i=0; i<booked.length; i++) {
+                    if (date.getTime() == booked[i].getTime()) {
+                        calendar.style.color = "#ffffff";
+                        return;
+                    } else if (date < booked[i]) {
+                        return;
+                    }
+                }
+            }
+        });
+
+        rentButton.addEventListener("click", function() {
+            if (rentButton.innerHTML == "Rent") {
+                rentButton.innerHTML = "Cancel";
+                calendarBlock.removeAttribute('hidden');
+                myCalendar.refresh();
+            } else {
+                myCalendar.clearSelected();
+                rentButton.innerHTML = "Rent";
+                calendarBlock.setAttribute("hidden", "hidden");
+                rentTable.setAttribute("hidden", "hidden");
+            }
+        }, false);
+
+        confirmButton.addEventListener("click", function() {
+            calendarBlock.setAttribute('hidden', 'hidden');
+            rentTable.setAttribute('hidden', 'hidden');
+            rentButton.innerHTML = "Rent";
+            myCalendar.clearSelected();
+            
+        }, false);
+
+        resetButton.addEventListener("click", function() {
+            myCalendar.clearSelected();
+            rentTable.setAttribute('hidden', 'hidden');
+        }, false);
+    </script>
+{% endblock %}

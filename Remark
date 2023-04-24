@@ -1,0 +1,26 @@
+0) Install library:
+    pip install pillow
+    
+1) To import table:
+    from data.models import Company, Customer, Space, Package, PackageDetails, Booking, Faq
+
+2) For views, import the following module:
+    from data.utilities import update_context
+    from data.models import Company
+
+3) For views, the render call should changed to:
+    context = {
+        PUT YOUR DATA HERE
+    }
+    return render(request, "YOUR HTML FILENAME", update_context(context))
+
+4) To use base template:
+    {% extends 'base_site.html' %}
+
+    {% block context %}
+        PUT YOUR HTML CODE HERE
+    {% endblock %}
+
+5) To create the view:
+    Delete the line 'pass' and replace with your code
+

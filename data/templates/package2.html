@@ -1,0 +1,49 @@
+{% extends 'base_site.html' %}
+
+{% block context %}
+    {% load static %}
+	  <!-- Package -->
+      <div class="w3-black" id="tour">
+        <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
+          <h2 class="w3-wide w3-center">Premium Package</h2>
+          <p class="w3-opacity w3-center"><i>Book the monthly special Premium Package to enjoy our full service NOW!</i></p><br>
+    
+          <ul class="w3-ul w3-border w3-white w3-text-grey">
+            <li class="w3-padding">April Special<span class="w3-tag w3-red w3-margin-left">Sold out</span></li>
+            <li class="w3-padding">May Special <span class="w3-tag w3-red w3-margin-left">Sold out</span></li>
+            <li class="w3-padding">June Special<span class="w3-badge w3-right w3-margin-right">3</span></li>
+          </ul>
+    
+          <div class="w3-row-padding w3-padding-32" style="margin:0 -16px">
+            <div class="w3-third w3-margin-bottom">
+              <img src="{% static 'images/space2.jpg' %}" alt="Causeway Bay" style="width:100%" class="w3-hover-opacity">
+              <div class="w3-container w3-white">
+                <p><b>Meeting Room</b></p>
+                <p class="w3-opacity">Week 23</p>
+                <p>Lee Garden One <br> 46/F, Lee Garden One, 33 Hysan Ave, Causeway Bay</p>
+                <button class="w3-button w3-black w3-margin-bottom" onclick="document.getElementById('ticketModal').style.display='block'">Buy Now!</button>
+              </div>
+            </div>
+            <div class="w3-third w3-margin-bottom">
+              <img src="{% static 'images/space6.jpg' %}" alt="Admiralty" style="width:100%" class="w3-hover-opacity">
+              <div class="w3-container w3-white">
+                <p><b>Showroom</b></p>
+                <p class="w3-opacity">Week 24</p>
+                <p>Metro Workspace Admiralty<br>Unit 603, Tower1, Admiralty Centre, Admiralty</p>
+                <button class="w3-button w3-black w3-margin-bottom" onclick="document.getElementById('ticketModal').style.display='block'">Buy Now!</button>
+              </div>
+            </div>
+            <div class="w3-third w3-margin-bottom">
+              <img src="{% static 'images/space4.jpg' %}" alt="Central" style="width:100%" class="w3-hover-opacity">
+              <div class="w3-container w3-white">
+                <p><b>Private Office</b></p>
+                <p class="w3-opacity">Week 25</p>
+                <p>The Center Space <br> Level 76, The Center, 99 Queen’s Road, Central</p>
+                <button class="w3-button w3-black w3-margin-bottom" onclick="document.getElementById('ticketModal').style.display='block'">Buy Now!</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>	
+{% endblock %}
