@@ -1,7 +1,12 @@
 {% extends 'base_site.html' %}
 
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/jsCalendar.min.css' %}">
+{% endblock %}
+
 {% block context %}
-    {% load static %}
     <div class='row'>
         <div class='col-sm-4' >
             <div id='calendarBlock' class='material-theme' hidden='hidden'>
@@ -9,7 +14,7 @@
                 <div>
                     <table class='table table-bordered col-sm-4'>
                         <tr>
-                            <td>
+                            <td id='instruction'>
                                 Instructions:           
                                 {% for booking in bookings %}
                                 "{{ booking.date }}",
@@ -69,14 +74,21 @@
                     </tr>
                     <tr>
                         <td>
-                            <button id='confirmButton' class='btn btn-primary'>Confirm</button>
-                            <button id='resetButton' class='btn btn-primary'>Reset</button>
+                            <form method="POST" id="post-form">
+                                {% csrf_token %}
+                                <input type='hidden' id='selectedDate' name='selectedDate'></input>
+                                <button id='confirmButton' type='submit' class='btn btn-primary'>Confirm</button>
+                                <button id='resetButton' class='btn btn-primary'>Reset</button>
+                            </form>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
+    {% endblock %}
+    {% block script %}
+    <script src="{% static 'js/jsCalendar.min.js' %}"></script>
     <script type="text/javascript">
         var calendar = document.getElementById('rentCalendar');
         var calendarBlock = document.getElementById('calendarBlock');
@@ -150,13 +162,25 @@
             }
         }, false);
 
-        confirmButton.addEventListener("click", function() {
-            calendarBlock.setAttribute('hidden', 'hidden');
-            rentTable.setAttribute('hidden', 'hidden');
-            rentButton.innerHTML = "Rent";
-            myCalendar.clearSelected();
-            
-        }, false);
+        $(document).ready(function() {
+            $('#post-form').on('submit', function(e) {
+                e.preventDefault(); 
+                calendarBlock.setAttribute('hidden', 'hidden');
+                rentTable.setAttribute('hidden', 'hidden');
+                rentButton.innerHTML = "Rent";
+
+                fetch('{% url "space_detail" space.id %}', 
+                    {
+                        method: "POST", 
+                        headers: {"X-Requested-With": "XMLHttpRequest", "X-CSRFToken": "{{csrf_token}}"},
+                        body: JSON.stringify({selectedDate: myCalendar.getSelected({sort: "asc", type: "YYYY-MM-DD"})})
+                    }
+                )
+                .then(response => response.json())
+                .then(data => { console.log(data);})
+                myCalendar.clearSelected();
+            });
+        });  
 
         resetButton.addEventListener("click", function() {
             myCalendar.clearSelected();

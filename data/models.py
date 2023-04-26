@@ -13,6 +13,7 @@ class Company(models.Model):
     telephone = models.CharField(max_length=16)
     email = models.EmailField()
     address = models.CharField(max_length=255)
+    terms = models.TextField()
 
     def __str__(self):
         return self.name

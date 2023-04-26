@@ -1,0 +1,46 @@
+{% extends "base_site.html" %}
+
+{% block context %}
+    <p>Name: {{ customer.user.username }}</p>
+    <p>Gender: {{ customer.gender }}</p>
+    <p>Telephone: {{ customer.telephone }}</p>
+    <p>Date joined: {{ customer.date_joined }}</p>
+    <p>Balance: ${{ customer.balance }}</p>
+    <br>
+    <p>Coupon available: {{ copuon }}</p>
+    <table class='table table-bordered text-center'>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Coupon</th>
+                <th>Due Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for packageDetail in packageDetails %}
+                <tr>
+                    <td>{{ packageDetail.package.name }}</td>
+                    <td>{{ packageDetail.coupon }}</td>
+                    <td>{{ packageDetail.dueDate }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <table class='table table-bordered text-center'>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+                <tr>                    
+                    <td>{{ booking.space.name }}</td>
+                    <td>{{ booking.date }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
