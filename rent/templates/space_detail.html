@@ -175,9 +175,15 @@
                         headers: {"X-Requested-With": "XMLHttpRequest", "X-CSRFToken": "{{csrf_token}}"},
                         body: JSON.stringify({selectedDate: myCalendar.getSelected({sort: "asc", type: "YYYY-MM-DD"})})
                     }
-                )
-                .then(response => response.json())
-                .then(data => { console.log(data);})
+                ) 
+                .then(response => {
+                    response.json();
+                    if (response.status == 200)
+                        window.location.href = "{% url 'info' %}";
+                }) 
+                .then(data => { 
+                    console.log(data);
+                }) 
                 myCalendar.clearSelected();
             });
         });  
