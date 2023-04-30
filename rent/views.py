@@ -9,6 +9,7 @@ import json
 import datetime
 
 # Create your views here.
+@login_required
 def spaceDetail(request, pk):
     space = Space.objects.get(pk=int(pk))
     is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'

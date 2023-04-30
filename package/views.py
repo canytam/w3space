@@ -29,12 +29,8 @@ def purchase_package(request):
                     dueDate = datetime.date.today() + datetime.timedelta(days=package.duration)
                 )
                 packageDetails.save()
-                context = {
-                    'customer': customer,
-                    'package': package,
-                    'coupon': total_coupon(customer),
-                }
-                return redirect(reverse('package_purchased', kwargs={'pk': packageDetails.pk}))
+                messages.success(request, f"You had purchased package { package.name }.")
+                return redirect(reverse('info'))
             else:
                 messages.error(request, "Balance is not enought.")
         else:
@@ -50,15 +46,3 @@ def purchase_package(request):
         'message': message,
     }
     return render(request, 'purchase_package.html', update_context(context))
-
-@login_required
-def package_purchased(request, pk):
-    detail = PackageDetails.objects.get(pk=pk)
-    package = detail.package
-    customer = detail.customer
-    context = {
-        'package': package,
-        'customer': customer,
-        'coupon': total_coupon(customer),
-    }
-    return render(request, "package_purchased.html", update_context(context))

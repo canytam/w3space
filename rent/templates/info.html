@@ -1,18 +1,19 @@
 {% extends "base_site.html" %}
 
 {% block context %}
-    <p>Name: {{ customer.user.username }}</p>
-    <p>Gender: {{ customer.gender }}</p>
-    <p>Telephone: {{ customer.telephone }}</p>
-    <p>Date joined: {{ customer.date_joined }}</p>
-    <p>Balance: ${{ customer.balance }}</p>
+    <h4>Name: {{ customer.user.username }}</h4>
+    <h4>Gender: {% if customer.gender == 'M' %}Male{% else %}Female{% endif %}</h4>
+    <h4>Telephone: {{ customer.telephone }}</h4>
+    <h4>Date joined: {{ customer.date_joined }}</h4>
+    <h4>Balance: ${{ customer.balance }}</h4>
+    <h4>Credits available: {{ coupon }}</h4>
     <br>
-    <p>Coupon available: {{ copuon }}</p>
-    <table class='table table-bordered text-center'>
+    <h4>Package details:</h4>
+    <table class='table table-bordered table-striped text-center'>
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Coupon</th>
+                <th>Credits</th>
                 <th>Due Date</th>
             </tr>
         </thead>
@@ -27,7 +28,8 @@
         </tbody>
     </table>
     <br>
-    <table class='table table-bordered text-center'>
+    <h4>Booked Space:</h4>
+    <table class='table table-bordered table-striped text-center'>
         <thead>
             <tr>
                 <th>Name</th>
@@ -37,7 +39,7 @@
         <tbody>
             {% for booking in bookings %}
                 <tr>                    
-                    <td>{{ booking.space.name }}</td>
+                    <td><a href="{% url 'space_detail' booking.space.id %}">{{ booking.space.name }}</a></td>
                     <td>{{ booking.date }}</td>
                 </tr>
             {% endfor %}

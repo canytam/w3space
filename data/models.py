@@ -14,6 +14,7 @@ class Company(models.Model):
     email = models.EmailField()
     address = models.CharField(max_length=255)
     terms = models.TextField()
+    website = models.URLField()
 
     def __str__(self):
         return self.name

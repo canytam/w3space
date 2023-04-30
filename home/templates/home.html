@@ -1,0 +1,19 @@
+{% extends 'base_site.html' %}
+
+{% block context %}
+{% load static %}
+<br>
+<h3>Our Choices of Rooms</h3>
+{% for space in space %}
+    <h4>{{ space.name }}</h4>
+    <p>{{ space.address }}</p>
+    <p>Size in Sq. ft. : {{ space.size }} </p>
+    <p>Credits Required : {{ space.coupon }}</p><br>
+    <img src="{% static space.photo %}" alt="Photo" class='rounded' width="40%" height="auto" /><br>
+    <a href="{% url 'space_detail' pk=space.id %}">To Rent Detail<br>
+    </a>
+    <br>
+    <hr>
+{% endfor %}          
+<br>
+{% endblock%}

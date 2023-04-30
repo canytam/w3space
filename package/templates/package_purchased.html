@@ -1,9 +1,0 @@
-{% extends 'base_site.html' %}
-
-{% block context %}
-    <h1>Package Purchased</h1>
-    <p>Purchased Package Type : {{ package.name }}</p>
-    <p>Credits Available : {{ coupon }}</p>
-    <p>Remaining Balance: ${{ customer.balance }}</p>
-    <br>
-{% endblock %}
