@@ -8,7 +8,7 @@
     <h4>{{ space.name }}</h4>
     <p>{{ space.address }}</p>
     <p>Size in Sq. ft. : {{ space.size }} </p>
-    <p>Credits Required : {{ space.coupon }}</p><br>
+    <p>Credits Required : {{ space.credits }}</p><br>
     <img src="{% static space.photo %}" alt="Photo" class='rounded' width="40%" height="auto" /><br>
     <a href="{% url 'space_detail' pk=space.id %}">To Rent Detail<br>
     </a>

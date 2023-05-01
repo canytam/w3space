@@ -6,7 +6,7 @@
     <h4>Telephone: {{ customer.telephone }}</h4>
     <h4>Date joined: {{ customer.date_joined }}</h4>
     <h4>Balance: ${{ customer.balance }}</h4>
-    <h4>Credits available: {{ coupon }}</h4>
+    <h4>Credits available: {{ credits }}</h4>
     <br>
     <h4>Package details:</h4>
     <table class='table table-bordered table-striped text-center'>
@@ -21,7 +21,7 @@
             {% for packageDetail in packageDetails %}
                 <tr>
                     <td>{{ packageDetail.package.name }}</td>
-                    <td>{{ packageDetail.coupon }}</td>
+                    <td>{{ packageDetail.credits }}</td>
                     <td>{{ packageDetail.dueDate }}</td>
                 </tr>
             {% endfor %}

@@ -36,7 +36,7 @@
                 {% for package in packages%}
                     <tr {% if customer.balance < package.price %}class='text-danger' style='text-decoration: line-through'{% endif %}>
                         <td>{{ package.name }}</td>
-                        <td>{{ package.coupon }}</td>
+                        <td>{{ package.credits }}</td>
                         <td>{{ package.duration }} days</td>
                         <td>${{ package.price }}</td>
                     <tr>

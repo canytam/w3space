@@ -49,14 +49,16 @@
                 </tr>
                 <tr>
                     <td>
-                        <p>Credits Required : {{ space.coupon }}</p>
+                        <p>Credits Required : {{ space.credits }}</p>
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <button id='rentButton' class='btn btn-primary btn-block' value='Rent'>Rent</button>
-                    </td>
-                </tr>
+                {% if user.is_authenticated %}
+                    <tr>
+                        <td>                        
+                            <button id='rentButton' class='btn btn-primary btn-block' value='Rent'>Rent</button>                        
+                        </td>
+                    </tr>
+                {% endif %}
             </table>
         </div>
         <div class='col-sm-4'>
@@ -105,8 +107,40 @@
                 new Date("{{ booking.date }}"),
             {% endfor %}
         ];
+        const packages = [
+            {% for package in packages %}
+                {
+                    date: new Date("{{ package.dueDate }}"),
+                    credits: {{ package.credits }}
+                },
+            {% endfor %}
+        ];
+
+        function checkCredit() {
+            credits = 0;
+            creditsAvailable = 0;
+            packageIndex = 0;
+            selectedDate = myCalendar.getSelected({sort: "asc", type: "YYYY-MM-DD"});
+            for (var i=0; i<selectedDate.length; i++) {
+                credits += {{ space.credits }};
+                while (credits > creditsAvailable) {
+                    if (packageIndex < packages.length) {
+                        creditsAvailable += packages[packageIndex].credits;
+                        packageIndex += 1;
+                    } else
+                        return false;
+                }
+                if (selectedDate[i] > packages[packageIndex-1].date)
+                    return false;
+            }
+            return true;
+        };
 
         myCalendar.onDateClick(function(event, date) {
+            if (packages.length == 0) {
+                alert("You have no credit!");
+                return;
+            }
             if ((date > min) && (date <= max)) {
                 for (var i=0; i<booked.length; i++) {
                     if (date.getTime() == booked[i].getTime())
@@ -114,10 +148,15 @@
                     else if (date < booked[i])
                         break;
                 }
-                if (myCalendar.isSelected(date))
+                if (myCalendar.isSelected(date)) {
                     myCalendar.unselect(date);
-                else
+                } else {
                     myCalendar.select(date);
+                    if (!checkCredit()) {
+                        myCalendar.unselect(date);
+                        alert("You don't have enough credits.");
+                    }
+                }
                 let selectedList = myCalendar.getSelected({sort: "asc", type: "YYYY-MM-DD"});                
                 var text = "";
                 for (let i=0; i < selectedList.length; i++) {

@@ -7,7 +7,7 @@ from django.urls import reverse
 from data.models import Company, Package, Customer, PackageDetails, Space
 from .forms import SpaceSearchForm
 import datetime
-from data.utilities import total_coupon, update_context
+from data.utilities import update_context
 
 # Create your views here.
 def space_search(request):

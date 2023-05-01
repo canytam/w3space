@@ -29,7 +29,7 @@ class Faq(models.Model):
     
 class Package(models.Model):
     name = models.CharField(max_length=255)
-    coupon = models.IntegerField()
+    credits = models.IntegerField()
     duration = models.IntegerField()
     price = models.IntegerField()
 
@@ -63,7 +63,7 @@ class Space(models.Model):
     address = models.CharField(max_length=255)
     size = models.IntegerField()
     photo = models.ImageField(upload_to='images/')
-    coupon = models.IntegerField()
+    credits = models.IntegerField()
 
     def __str__(self):
         return self.name
@@ -82,8 +82,21 @@ class Booking(models.Model):
 class PackageDetails(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     package = models.ForeignKey(Package, on_delete=models.CASCADE)
-    coupon = models.IntegerField()
+    credits = models.IntegerField()
     dueDate = models.DateField()
 
+    class Meta:
+        ordering = ['dueDate']
+        
     def __str__(self):
         return self.customer.user.username+':'+self.package.name
+    
+class CleanUp(models.Model):
+    date = models.DateField()
+    credits = models.IntegerField()
+    
+    class Meta:
+        ordering = ['-date']
+        
+    def __str__(self):
+        return self.date.strftime("%Y-%m-%d")

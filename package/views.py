@@ -6,7 +6,7 @@ from django.urls import reverse
 from data.models import Company, Package, Customer, PackageDetails
 from .forms import PurchasePackageForm
 import datetime
-from data.utilities import total_coupon, update_context
+from data.utilities import total_credits, update_context
 from django.contrib import messages
 
 # Create your views here.
@@ -25,7 +25,7 @@ def purchase_package(request):
                 packageDetails = PackageDetails(
                     customer = customer,
                     package = package,
-                    coupon = package.coupon,
+                    credits = package.credits,
                     dueDate = datetime.date.today() + datetime.timedelta(days=package.duration)
                 )
                 packageDetails.save()
@@ -42,7 +42,7 @@ def purchase_package(request):
         'form' : form,
         'customer': customer,
         'packages': packages,
-        'coupon': total_coupon(customer),
+        'credits': total_credits(customer),
         'message': message,
     }
     return render(request, 'purchase_package.html', update_context(context))
