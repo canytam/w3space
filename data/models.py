@@ -43,7 +43,6 @@ class Customer(models.Model):
     ]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    date_joined = models.DateField(default=date.today)
     telephone = models.CharField(max_length=16)
     balance = models.IntegerField(default=0)
 

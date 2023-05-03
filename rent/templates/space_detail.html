@@ -12,13 +12,13 @@
             <div id='calendarBlock' class='material-theme' hidden='hidden'>
                 <div id='rentCalendar'></div>
                 <div>
-                    <table class='table table-bordered col-sm-4'>
+                    <table class='table table-bordered'>
                         <tr>
                             <td id='instruction'>
-                                Instructions:           
-                                {% for booking in bookings %}
-                                "{{ booking.date }}",
-                                {% endfor %}                
+                                <p>Instructions:</p>
+                                <p>Click to toggle booking.</p>
+                                <p>You can book a space with 90 days.</p>
+                                <p>If the data do not show, it means the space is unavailable.</p>          
                             </td>
                         </tr>
                     </table>
