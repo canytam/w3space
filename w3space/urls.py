@@ -23,7 +23,7 @@ from django.views.generic import RedirectView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    #path('accounts/', include('data.urls')),
+    path('accounts/', include('data.urls')),
     path('package/', include('package.urls')),
     path('home/', include('home.urls')),
     path('faq/', include('faq.urls')),
@@ -33,6 +33,5 @@ urlpatterns = [
     path('', RedirectView.as_view(pattern_name='home')),
 ]
 
-if not settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

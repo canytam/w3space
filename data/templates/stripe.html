@@ -1,0 +1,15 @@
+{% extends "base_site.html" %}
+{% load static %}
+
+{% block script %}
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src='{% static "js/main.js" %}'></script>
+{% endblock %}
+
+{% block context %}
+    <section class='section'>
+        <div class='container'>
+            <button class='button is-primary' id='submitBtn'>Purchase!</button>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base_site.html" %}
+
+{% block context %}
+    <div style="margin:80px">
+        <h2 align="left">Contact Us</h2>
+        <hr>
+        <h4>Welcome to W3space! Please leave your message below:</h4>
+        <hr>
+        <br>
+        <form method="post" action="" enctype="multipart/form-data" class="post-form">
+            {% csrf_token %}
+            <table>
+                {{form.as_table}}
+            </table>
+            <button type="submit" class="save btn btn-default">Submit</button>
+        </form>
+    </div>
+{% endblock %}

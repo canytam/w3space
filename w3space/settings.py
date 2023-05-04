@@ -66,6 +66,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.media',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -125,7 +126,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'static'
-MEDIA_URL = '/media/'
+MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
@@ -142,6 +143,9 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51N3vQBCUZdLtOn7YkxhQOWBTVbetuTgZGlsvEjXGrCtO1fQCQr8tIrUtOwvabwJrUFQm2nAC72UqLWHMcmkUxKG900YTPz8G5A'
+STRIPE_SECRET_KEY = 'sk_test_51N3vQBCUZdLtOn7Y24mxVC5rVFZSiRtM2PZ7oCwenvNfHZtiNSZnfkTVTz1AG940JCGKrQcJn2htizKVd8eBjmh500LgF7GlLO'
 
 #RECAPTCHA_PUBLIC_KEY = '6LeQgdglAAAAACCPfbv-JezOXZ1FsvTkS3KYgPw7'
 #RECAPTCHA_PRIVATE_KEY = '6LeQgdglAAAAALdUw-0pCxq2HS-2lajE3VtGBrPp'

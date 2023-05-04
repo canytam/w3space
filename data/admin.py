@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from .models import Company, Faq, Package, Customer, Space, Booking, PackageDetails, CleanUp
+from .models import Company, Faq, Package, Customer, Space, Booking, Contact, PackageDetails, CleanUp
 
 class CustomerInline(admin.StackedInline):
     model = Customer
@@ -20,3 +20,4 @@ admin.site.register(Space)
 admin.site.register(Booking)
 admin.site.register(PackageDetails)
 admin.site.register(CleanUp)
+admin.site.register(Contact)

@@ -9,7 +9,7 @@
     <p>{{ space.address }}</p>
     <p>Size in Sq. ft. : {{ space.size }}</p>
     <p>  Credits Required : {{ space.credits }}</p>
-    <img src="{% static space.photo %}" alt="Photo" class='rounded' width="40%" height="auto" /><br>
+    <img src="{{ space.photo.url }}" alt="Photo" class='rounded' width="40%" height="auto" /><br>
     
     <tbody>
         {% for key, values in bookLs.items %}
