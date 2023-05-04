@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'faq.apps.FaqConfig',
     'rent.apps.RentConfig',
     'search.apps.SearchConfig',
+    #'captcha',
 ]
 
 MIDDLEWARE = [
@@ -141,3 +142,7 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+
+#RECAPTCHA_PUBLIC_KEY = '6LeQgdglAAAAACCPfbv-JezOXZ1FsvTkS3KYgPw7'
+#RECAPTCHA_PRIVATE_KEY = '6LeQgdglAAAAALdUw-0pCxq2HS-2lajE3VtGBrPp'
+#SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']

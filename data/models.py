@@ -63,7 +63,9 @@ class Space(models.Model):
     size = models.IntegerField()
     photo = models.ImageField(upload_to='images/')
     credits = models.IntegerField()
-
+    has_coffeemaker = models.BooleanField(default=False)
+    has_notebook = models.BooleanField(default=False)
+    
     def __str__(self):
         return self.name
 
