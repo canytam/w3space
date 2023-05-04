@@ -2,8 +2,8 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import get_user_model
 from data.models import Customer
-from captcha.fields import ReCaptchaField
-from captcha.widgets import ReCaptchaV2Checkbox
+#from captcha.fields import ReCaptchaField
+#from captcha.widgets import ReCaptchaV2Checkbox
 
 class UserLoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
@@ -20,7 +20,7 @@ class UserLoginForm(AuthenticationForm):
             attrs={'class': 'form-control', 'placeholder': 'Password'}
         )
     )
-    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
+    #captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
     
 class UserRegistrationForm(UserCreationForm):
     gender = forms.ChoiceField(choices=Customer.GENDER_CHOICES)
