@@ -6,8 +6,16 @@ from django.contrib import messages
 from django.views.generic.base import TemplateView
 from django.conf import settings
 from django.http.response import JsonResponse
+from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from django.views import View
+from django.urls import reverse_lazy
+from django.contrib import messages
+from data.models import Customer
 import stripe
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 # Create your views here.
 def register(request):
@@ -32,40 +40,59 @@ def register(request):
     }  
     return render(request, "register.html", update_context(context))            
   
-class stripeView(TemplateView):
-    template_name = 'stripe.html'
-'''    
-@csrf_exempt
-def stripe_config(request):
-    if request.method == 'GET':
-        stripe_config = {'publicKey': settings.STRIPE_PUBLISHABLE_KEY}
-        return JsonResponse(stripe_config, safe=False)
-    
-@csrf_exempt
-def create_checkout_session(request):
-    if request.method == 'GET':
-        domain_url = 'http://localhost:8000/accounts/'
-        stripe.api_key = settings.STRIPE_SECRET_KEY
+@method_decorator(csrf_exempt, name="dispatch")
+class StripeWebhookView(View):
+    def post(self, request, format=None):
+        payload = request.body
+        endpoint_secret = settings.STRIPE_WEBHOOK_SECRET
+        sig_header = request.META["HTTP_STRIPE_SIGNATURE"]
+        event = None
+        
         try:
-            checkout_session = stripe.checkout.Session.create(
-                success_url = domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',
-                cancel_url = domain_url + 'cancelled/',
-                payment_method_types = ['card'],
-                mode = 'payment',
-                line_items = [
-                    {
-                        'price_data': {
-                            'currency': 'hkd',
-                            'unit_amount': 1000,
-                            'product_data': {
-                                'name': 'Deposit',                                
-                            },
+            event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
+        except ValueError as e:
+            return HttpResponse(status=400)
+        except stripe.error.SignatureVerificationError as e:
+            return HttpResponse(status=400)
+        
+        if event["type"] == "checkout.session.completed":
+            print("Payment successful")
+            session = event["data"]["object"]
+            customer_id = session["metadata"]["customer_id"]
+            customer = Customer.objects.get(id=customer_id)
+            customer.balance += 1000
+            customer.save()
+        
+        return HttpResponse(status=200)
+    
+class CreateStripeCheckoutSessionView(View):
+    def post(self, request, *args, **kwargs):
+        customer = Customer.objects.get(id=self.kwargs["pk"])
+        checkout_session = stripe.checkout.Session.create(
+            success_url = settings.PAYMENT_SUCCESS_URL,
+            cancel_url = settings.PAYMENT_CANCEL_URL,
+            payment_method_types = ['card'],
+            mode = 'payment',
+            metadata = {"customer_id": customer.id},
+            line_items = [
+                {
+                    'price_data': {
+                        'currency': 'hkd',
+                        'unit_amount': 100000,
+                        'product_data': {
+                            'name': 'Deposit',                                
                         },
-                        'quantity': 1,
                     },
-                ],
-            ),
-            return JsonResponse({'id': checkout_session.id})
-        except Exception as e:
-            return JsonResponse({'error': str(e)})
-            '''
+                    'quantity': 1,
+                },
+            ],
+        ),
+        return redirect(checkout_session[0].url)
+
+def successView(request):
+    messages.info(request, 'Transcation completed.')
+    return redirect(reverse_lazy('info'))
+        
+def cancelView(request):
+    messages.error(request, 'Transcation cancelled.')
+    return redirect(reverse_lazy('info'))

@@ -128,9 +128,7 @@
     <div class="wt-body-max-width wt-pr-xs-4 wt-pl-xs-4">
       <h2 class="wt-text-heading-01 wt-text-black wt-text-center-md wt-mt-xs-0 wt-mb-xs-7">Could not find what you need? </h2><br>
       <div class="wt-grid wt-justify-content-center wt-mb-xs-3 width-full">
-        <a class="wt-show-xs wt-hide-lg" href="{% url 'contact' %}" target=_blank>
-          <button class="help-cta-button text-center wt-btn wt-btn--filled">Contact W3Space</button>
-        </a>
+        <button class="help-cta-button text-center wt-btn wt-btn--filled" onclick="window.location.href='{% url 'contact' %}';">Contact {{ company.name }}</button>
       </div>
     </div>
     <br><br><br><br><br><br>

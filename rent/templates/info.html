@@ -5,8 +5,13 @@
     <h4>Gender: {% if customer.gender == 'M' %}Male{% else %}Female{% endif %}</h4>
     <h4>Telephone: {{ customer.telephone }}</h4>
     <h4>Date joined: {{ customer.date_joined }}</h4>
-    <h4>Balance: ${{ customer.balance }}</h4>
-    <h4>Credits available: {{ credits }}</h4>
+    <form action="{% url 'create-checkout-session' customer.id %}" method="POST">
+        {% csrf_token %}
+        <h4>Balance: ${{ customer.balance }} 
+        <button type='submit'>Add More</button>
+    </form>
+    </h4>
+    <h4>Credits available: {{ credits }} <input type='button' onclick="window.location.href='{% url 'purchase_package' %}';" value='Add More'></input></h4>
     <br>
     <h4>Package details:</h4>
     <table class='table table-bordered table-striped text-center'>

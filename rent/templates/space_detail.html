@@ -9,7 +9,7 @@
 {% block context %}
     <div class='row'>
         <div class='col-sm-4' >
-            <div id='calendarBlock' class='material-theme' hidden='hidden'>
+            <div class='material-theme'>
                 <div id='rentCalendar'></div>
                 <div>
                     <table class='table table-bordered'>
@@ -52,13 +52,6 @@
                         <p>Credits Required : {{ space.credits }}</p>
                     </td>
                 </tr>
-                {% if user.is_authenticated %}
-                    <tr>
-                        <td>                        
-                            <button id='rentButton' class='btn btn-primary btn-block' value='Rent'>Rent</button>                        
-                        </td>
-                    </tr>
-                {% endif %}
             </table>
         </div>
         <div class='col-sm-4'>
@@ -80,7 +73,7 @@
                                 {% csrf_token %}
                                 <input type='hidden' id='selectedDate' name='selectedDate'></input>
                                 <button id='confirmButton' type='submit' class='btn btn-primary'>Confirm</button>
-                                <button id='resetButton' class='btn btn-primary'>Reset</button>
+                                <input id='resetButton' type='button' value='Reset' class='btn btn-primary'></button>
                             </form>
                         </td>
                     </tr>
@@ -93,8 +86,6 @@
     <script src="{% static 'js/jsCalendar.min.js' %}"></script>
     <script type="text/javascript">
         var calendar = document.getElementById('rentCalendar');
-        var calendarBlock = document.getElementById('calendarBlock');
-        var rentButton = document.getElementById('rentButton');
         var confirmButton = document.getElementById('confirmButton');
         var resetButton = document.getElementById('resetButton');
         var rentTable = document.getElementById('rentTable');
@@ -137,10 +128,11 @@
         };
 
         myCalendar.onDateClick(function(event, date) {
+            {% if user.is_authenticated %}
             if (packages.length == 0) {
                 alert("You have no credit!");
                 return;
-            }
+            };
             if ((date > min) && (date <= max)) {
                 for (var i=0; i<booked.length; i++) {
                     if (date.getTime() == booked[i].getTime())
@@ -168,6 +160,9 @@
                     rentTable.setAttribute('hidden', 'hidden');
                 rentList.innerHTML = text;
             }
+            {% else %}
+            alert("If you are our customer, please login first.\nOr you can sign up to be our customer.");
+            {% endif %}
         });
 
         myCalendar.onDateRender(function(date, calendar, info) {            
@@ -188,25 +183,10 @@
             }
         });
 
-        rentButton.addEventListener("click", function() {
-            if (rentButton.innerHTML == "Rent") {
-                rentButton.innerHTML = "Cancel";
-                calendarBlock.removeAttribute('hidden');
-                myCalendar.refresh();
-            } else {
-                myCalendar.clearSelected();
-                rentButton.innerHTML = "Rent";
-                calendarBlock.setAttribute("hidden", "hidden");
-                rentTable.setAttribute("hidden", "hidden");
-            }
-        }, false);
-
         $(document).ready(function() {
             $('#post-form').on('submit', function(e) {
                 e.preventDefault(); 
-                calendarBlock.setAttribute('hidden', 'hidden');
                 rentTable.setAttribute('hidden', 'hidden');
-                rentButton.innerHTML = "Rent";
 
                 fetch('{% url "space_detail" space.id %}', 
                     {
@@ -231,5 +211,7 @@
             myCalendar.clearSelected();
             rentTable.setAttribute('hidden', 'hidden');
         }, false);
+
+        myCalendar.refresh();
     </script>
 {% endblock %}

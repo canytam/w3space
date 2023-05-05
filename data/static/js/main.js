@@ -9,7 +9,7 @@ fetch("/accounts/config/")
         .then((result) => { return result.json(); })
         .then((data) => {
             console.log(data);
-            return stripe.redirectToCheckout({id: data.id})
+            return stripe.redirectToCheckout()
         })
         .then((res) => {
             console.log(res);

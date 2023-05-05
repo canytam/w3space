@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path('register/', views.register, name='register'),
-    path('stripe/', views.stripeView.as_view(), name='stripe'),
-    #path('config/', views.stripe_config),
-    #path('create-checkout-session/', views.create_checkout_session),
+    path('create-checkout-session/<int:pk>/', views.CreateStripeCheckoutSessionView.as_view(), name='create-checkout-session'),
+    path('success/', views.successView, name='success'),
+    path('cancel/', views.cancelView, name='cancel'),
 ]
