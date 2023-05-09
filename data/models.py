@@ -42,8 +42,8 @@ class Customer(models.Model):
         ('F', 'Female'),
     ]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    telephone = models.CharField(max_length=16)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, default="M")
+    telephone = models.CharField(max_length=16, default="")
     balance = models.IntegerField(default=0)
 
     def purchase(self, package):

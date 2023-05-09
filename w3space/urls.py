@@ -33,6 +33,10 @@ urlpatterns = [
     path('rent/', include('rent.urls')),
     path('', RedirectView.as_view(pattern_name='home')),
     path('webhooks/stripe/', views.StripeWebhookView.as_view(), name="stripe-webhook"),
+    path('social-auth/', include('social_django.urls', namespace='social')),
+    path('terms/', views.terms , name='terms'),
+    path('cookie/', views.cookie, name='cookie'),
+    path('privacy/', views.privacy, name='privacy'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

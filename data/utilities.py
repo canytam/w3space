@@ -1,6 +1,13 @@
-from .models import PackageDetails, Company, CleanUp
+from .models import PackageDetails, Company, CleanUp, Customer
 from datetime import date
 
+def save_customer(backend, user, response, *args, **kwargs):
+    if backend.name == 'google-oauth2' or backend.name == 'github':
+        customer = Customer.objects.filter(user=user)
+        if len(customer) == 0:
+            customer = Customer(user = user)
+            customer.save()
+        
 def total_credits(customer):
     credits = 0
     records = PackageDetails.objects.filter(customer = customer)

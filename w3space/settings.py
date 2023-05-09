@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-arxb(5x-jj3#h-k%9&5p$nf@4@4_()_2344phjk)g7m60=+#q1'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.pythonanywhere.com']
 
@@ -44,7 +46,9 @@ INSTALLED_APPS = [
     'faq.apps.FaqConfig',
     'rent.apps.RentConfig',
     'search.apps.SearchConfig',
-    #'captcha',
+    'captcha',
+    'django_extensions',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -55,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'w3space.urls'
@@ -71,6 +76,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
             ],
         },
     },
@@ -134,6 +140,49 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'info'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
+
+SOCIAL_AUTH_GITHUB_KEY = config('SOCIAL_AUTH_GITHUB_KEY')
+SOCIAL_AUTH_GITHUB_SECRET = config('SOCIAL_AUTH_GITHUB_SECRET')
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'data.utilities.save_customer',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)
+
 from django.contrib.messages import constants as messages
 
 MESSAGE_TAGS = {
@@ -144,13 +193,20 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
 }
 
-STRIPE_PUBLISHABLE_KEY = 'pk_test_51N3vQBCUZdLtOn7YkxhQOWBTVbetuTgZGlsvEjXGrCtO1fQCQr8tIrUtOwvabwJrUFQm2nAC72UqLWHMcmkUxKG900YTPz8G5A'
-STRIPE_SECRET_KEY = 'sk_test_51N3vQBCUZdLtOn7Y24mxVC5rVFZSiRtM2PZ7oCwenvNfHZtiNSZnfkTVTz1AG940JCGKrQcJn2htizKVd8eBjmh500LgF7GlLO'
-STRIPE_WEBHOOK_SECRET = 'whsec_186fbe1f6ca8fc0dff2cb19dafbac16512f123a1269643afada840434e8ad5b2'
+STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
+STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
+STRIPE_WEBHOOK_SECRET = config('STRIPE_WEBHOOK_SECRET')
 BACKEND_DOMAIN = 'http://127.0.0.1:8000/accounts'
 PAYMENT_SUCCESS_URL = BACKEND_DOMAIN + '/success/'
 PAYMENT_CANCEL_URL = BACKEND_DOMAIN + '/cancel/'
 
-#RECAPTCHA_PUBLIC_KEY = '6LeQgdglAAAAACCPfbv-JezOXZ1FsvTkS3KYgPw7'
-#RECAPTCHA_PRIVATE_KEY = '6LeQgdglAAAAALdUw-0pCxq2HS-2lajE3VtGBrPp'
-#SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
+RECAPTCHA_PUBLIC_KEY = config('RECAPTCHA_PUBLIC_KEY')
+RECAPTCHA_PRIVATE_KEY = config('RECAPTCHA_PRIVATE_KEY')
+SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')

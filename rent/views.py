@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from data.models import Space, Booking, User, Customer, PackageDetails
+from data.models import Space, Booking, Customer, PackageDetails
 from data.utilities import update_context, total_credits
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponseBadRequest

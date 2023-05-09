@@ -1,1 +1,10 @@
-@charset "utf-8";
+@charset "UTF-8";
+/* login css */
+.divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;
+}
+/* register css */
