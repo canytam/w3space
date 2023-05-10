@@ -1,0 +1,480 @@
+{% extends 'base_site.html' %}
+
+{% load static %}
+{% comment %}
+<!doctype html>
+<html lang="en">
+<html>
+<head>
+<meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="co-working company" name="description">
+<meta content="co-working, space, rent, service" name="keywords">
+<link rel="icon" href="{% static 'icon/favicon.ico' %}" />
+<link rel="apple-touch-icon" href="{% static 'icon/apple-touch-icon.png' %}"><!-- 180×180 -->
+<link rel="manifest" href="{% static 'icon/site.webmanifest' %}">
+<title>About Us Page</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+{% block style %}
+
+<!-- Google Fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i">
+{% endcomment %}
+{% block style %}
+<!-- Vendor CSS Files -->
+  <link rel="stylesheet" href="{% static 'assets/vendor/aos/aos.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" >
+  <link rel="stylesheet" href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" >
+  <link rel="stylesheet" href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" >
+  <link rel="stylesheet" href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" >
+
+  <!-- Template Main CSS File -->
+  <link rel="stylesheet" href="{% static 'assets/css/style_carmen.css' %}" >
+{% endblock %}
+{% comment %}
+<style>
+{% comment %} #hero {
+  width: 120%;
+  height: 75vh;
+  background: url="{% static 'images/heroBackground.jpg' %}"   top left;
+  background-size: cover;
+  position: relative;
+} { % endcomment %}
+</style>
+{% endblock style %}
+</head>
+
+{% block context %}
+<body>
+{% endcomment %}
+{% block context %}
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center">
+    <div class="container" data-aos="zoom-out" data-aos-delay="100">
+      {% if company %}
+        <h1>Welcome to <span>{{ company.name }}</span></h1>
+        <h2>With {{ company.name }} flex office experts on your team, your office search will be streamlined and your workspace will be tailored to your individual needs.</h2>
+      {% endif %}
+      <div class="d-flex">
+        <a href="#about" class="btn-get-started scrollto">Get Started</a> 
+        <a href="{% static 'coworking.mp4' %}" alt="w3Space Video">
+          <i>
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
+              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+              <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"/>
+            </svg>
+          </i>
+          <span> &nbsp;&nbsp; Watch Video</span>
+        </a>
+      </div>
+    </div>	  
+  </section>
+  <!-- End Hero -->
+
+  <main id="main">
+  <!-- Start How we work -->
+    <div class="section-title" style="text-align: center">
+      <br><br>
+      <h3>How we <span>Work? </span></h3>
+      <p align="center">Leverage our team’s knowledge, market expertise and experience in the flex market, we’ll help you incorporate flexibility into your strategy by ONLY 4 steps:</p>
+       
+	    <!-- ======= Featured Services Section ======= -->
+      <section id="featured-services" class="featured-services" >
+        <div class="container" data-aos="fade-up">
+          <div class="row">
+            <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+              <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+                <!-- <div class="icon"><i class="bx bxl-dribbble"></i></div>-->
+                <h4 class="title"><a href="">1. SPEAK </a></h4>
+                <p class="description">Our consultant will coordinate your office search, at no cost to you.</p>
+			        </div>
+            </div>
+       
+            <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+              <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
+                <!--    <div class="icon"><i class="bx bx-file"></i></div>-->
+                <h4 class="title"><a href="">2. FIND</a></h4>
+                <p class="description">We'll narrow down and shortlist the most suitable options according to your business and budget.</p>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+              <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
+                <!--    <div class="icon"><i class="bx bx-tachometer"></i></div>-->
+                <h4 class="title"><a href="">3.RESERVE</a></h4>
+                <p class="description">If you bought the coupon, you can reserve all your needs in our website.</p>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+              <div class="icon-box" data-aos="fade-up" data-aos-delay="400">
+                <!--      <div class="icon"><i class="bx bx-world"></i></div>-->
+                <h4 class="title"><a href="">4. GO</a></h4>
+                <p class="description">All work space is well equipped and ready for business, you can simply come and get to work</p>
+              </div>
+            </div>
+          </div>
+		    </div>
+		  </section>      
+	  </div>
+	  <!-- End Featured Services Section -->
+	  <!--end of how it work-->
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about section-bg">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>About</h2>
+          <h3>Find Out More <span>About Us</span></h3>
+          <p>Our mission is to realise the potential of our clients, professionals and partners by building the real estate solutions of the future.</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6" data-aos="fade-right" data-aos-delay="100">
+            <img src="{% static 'assets/img/about.jpg'%}" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0 content d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="100">
+            <h3>How to achieve?</h3>
+            <p class="fst-italic">With deep market knowledge, superior data and proprietary technology, our multi-dimensional perspective helps you use real estate to transform your business and find greater success. 
+            </p>
+            <ul>
+              <li>
+                <i>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box2-heart-fill" viewBox="0 0 16 16">
+                    <path d="M3.75 0a1 1 0 0 0-.8.4L.1 4.2a.5.5 0 0 0-.1.3V15a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V4.5a.5.5 0 0 0-.1-.3L13.05.4a1 1 0 0 0-.8-.4h-8.5ZM8.5 4h6l.5.667V5H1v-.333L1.5 4h6V1h1v3ZM8 7.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z"/>
+                  </svg>
+                </i>
+                <div>
+                  <h5>We enable people and businesses to work where they want, when they want and how they want.</h5>
+                </div>
+              </li>
+              <li>
+                <i>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="29" fill="currentColor" class="bi bi-globe" viewBox="0 0 16 16">
+                    <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855.173-.324.33-.682.468-1.068H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"/>
+                  </svg>
+                </i>
+                <div>
+                  <h5>Our network includes almost 4000 business centres, spanning almost 900 cities across 120 countries.</h5>
+                </div>
+              </li>
+            </ul>       
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End About Section -->
+
+    <!-- ======= Counts Section ======= -->
+    <section id="counts" class="counts">
+      <div class="container" data-aos="fade-up">
+        <div class="row">
+          <div class="col-lg-3 col-md-6">
+            <div class="count-box">
+              <!-- <i class="fa-solid fa-city"></i> -->
+			        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="Color=#000000" class="fa-solid fa-city" viewBox="0 0 640 512"><path d="M480 48c0-26.5-21.5-48-48-48H336c-26.5 0-48 21.5-48 48V96H224V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V96H112V24c0-13.3-10.7-24-24-24S64 10.7 64 24V96H48C21.5 96 0 117.5 0 144v96V464c0 26.5 21.5 48 48 48H304h32 96H592c26.5 0 48-21.5 48-48V240c0-26.5-21.5-48-48-48H480V48zm96 320v32c0 8.8-7.2 16-16 16H528c-8.8 0-16-7.2-16-16V368c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16zM240 416H208c-8.8 0-16-7.2-16-16V368c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16zM128 400c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V368c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32zM560 256c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H528c-8.8 0-16-7.2-16-16V272c0-8.8 7.2-16 16-16h32zM256 176v32c0 8.8-7.2 16-16 16H208c-8.8 0-16-7.2-16-16V176c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16zM112 160c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V176c0-8.8 7.2-16 16-16h32zM256 304c0 8.8-7.2 16-16 16H208c-8.8 0-16-7.2-16-16V272c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32zM112 320H80c-8.8 0-16-7.2-16-16V272c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16zm304-48v32c0 8.8-7.2 16-16 16H368c-8.8 0-16-7.2-16-16V272c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16zM400 64c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H368c-8.8 0-16-7.2-16-16V80c0-8.8 7.2-16 16-16h32zm16 112v32c0 8.8-7.2 16-16 16H368c-8.8 0-16-7.2-16-16V176c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16z"/></svg>				
+              <span data-purecounter-start="0" data-purecounter-end="{{ city }}" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Cities</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+            <div class="count-box">
+			        <!--<i> </i>-->
+		          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="Color=#000000" class="bi bi-person-workspace" viewBox="0 0 16 16">
+                <path d="M4 16s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H4Zm4-5.95a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+                <path d="M2 1a2 2 0 0 0-2 2v9.5A1.5 1.5 0 0 0 1.5 14h.653a5.373 5.373 0 0 1 1.066-2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v9h-2.219c.554.654.89 1.373 1.066 2h.653a1.5 1.5 0 0 0 1.5-1.5V3a2 2 0 0 0-2-2H2Z"/>
+              </svg>
+              {% comment %}
+              {% for space in spaces %}          
+                <span data-purecounter-start="0" data-purecounter-end="{{ space.name|length }}" data-purecounter-duration="1" class="purecounter"></span>
+              {% endfor %}
+              {% endcomment %}
+              <span data-purecounter-start="0" data-purecounter-end="{{ spaces | length }}" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Working Space</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+            <div class="count-box">
+              <!-- <i class="bi bi-headset"></i>-->
+				      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="Color=#000000" class="bi bi-people" viewBox="0 0 16 16">
+                <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8Zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022ZM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816ZM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/>
+              </svg>
+              {% comment %}
+              {% for customer in customers %}				
+                <span data-purecounter-start="0" data-purecounter-end="{{ customer.username|length }}" data-purecounter-duration="1" class="purecounter"></span>
+              {% endfor %}
+              {% endcomment %}
+              <span data-purecounter-start="0" data-purecounter-end="{{ customers | length }}" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Members</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+            <div class="count-box">
+				      <!--<i class="bi bi-people"></i>-->
+					    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="Color=#000000" class="bi bi-cart" viewBox="0 0 16 16">
+                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+              </svg>				
+              <span data-purecounter-start="0" data-purecounter-end="{{ repeatedCustomers | length}}" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Repeat Purchase </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- End Counts Section -->
+
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Services</h2>
+          <h3>Check our <span>Services</span></h3>
+          <p>If working from home is not your thing, having an office space with conference rooms, a receptionist, phone booths, high speed internet, networking events and a flexible working environment might be a good idea.</p>
+        </div>
+		  
+		 <div class="row">
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+            <div class="icon-box">
+              <div class="icon"> <img src="{% static 'DedicatedOffice@2x.webp' %}" width="100" height="100"> </div>
+              <h4><a href="">DEDICATED OFFICE</a></h4>
+              <p>Private Offices for 2-20 persons or enterprise teams</p>
+            </div>
+          </div>
+      
+	<div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
+            <div class="icon-box">
+              <div class="icon"><img src="{% static 'Spot6@2x.webp' %}" width="100" height="100"></div>
+              <h4><a href="">DAY PASS</a></h4>
+              <p>Enjoy the space and amenities for a day</p>
+            </div>
+          </div> 
+		  
+		   <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
+            <div class="icon-box">
+              <div class="icon"><img src="{% static 'HotOffice@2x.webp' %}" width="100" height="100"></div>
+              <h4><a href="">HOT DESK</a></h4>
+              <p>An intuitive workspace that moves with you</p>
+            </div>
+          </div>
+        </div>
+	 </div>
+
+    </section>
+    <!-- End Services Section -->
+
+    <!-- ======= Pricing Section ======= -->
+    <section id="pricing" class="pricing">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Pricing</h2>
+          <h3>Check our <span>Pricing</span></h3>
+          <p>Regardless of the package you choose, get a fully equipped workspace that includes facilities, furniture, high-speed internet and a staffed reception.</p>
+        </div>
+
+        {% comment %} {% for package in packages %}
+
+        <div class="row">
+
+          <div class="col-lg-4 col-md-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="box">
+              <h3>{{package.name}}</h3>
+              <h4><sup>$</sup>{{package.price}}<span> / package</span></h4>
+              <ul>
+                <li>Credit: <span> {{packageDetail.credits}}</span></li>
+                <li>Duration: <span>{{packageDetail.dueDate}}</span></li>
+
+                {% if %}
+                <li class="na">Secretary Service</li>
+                <li class="na">VIP Event</li>
+              </ul>
+              <div class="btn-wrap">
+                <a href="#" class="btn-buy">Subscribe Now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+{% endfor %} {% endcomment %}
+
+
+
+
+        <div class="row">
+
+          <div class="col-lg-4 col-md-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="box">
+              <h3>Basic</h3>
+              <h4><sup>$</sup>3000<span> / package</span></h4>
+              <ul>
+                <li>Credit: <span> 30</span></li>
+                <li>Duration: <span>30</span></li>
+                <li class="na">Secretary Service</li>
+                <li class="na">VIP Event</li>
+              </ul>
+              <div class="btn-wrap">
+                <a href="{% url 'purchase_package' %}" class="btn-buy">Subscribe Now</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-4 mt-4 mt-md-0" data-aos="fade-up" data-aos-delay="200">
+            <div class="box featured">
+              <h3>Normal</h3>
+              <h4><sup>$</sup>4750<span> / package</span></h4>
+              <ul>
+                 <li>Credit: <span> 50</span></li>
+                <li>Duration: <span>60</span></li>
+                <li>Secretary Service</li>
+                <li class="na">VIP Event</li>
+              </ul>
+              <div class="btn-wrap">
+                <a href="{% url 'purchase_package' %}" class="btn-buy">Subscribe Now</a>
+              </div>
+            </div>
+          </div> 
+
+          <div class="col-lg-4 col-md-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="300">
+            <div class="box">
+		  <span class="advanced">Advanced</span>
+              <h3>Deluxe</h3>
+              <h4><sup>$</sup>8100<span> / package</span></h4>
+              <ul>
+               <li>Credit: <span> 90</span></li>
+                <li>Duration: <span>90</span></li>
+                <li>Secretary Service</li>
+                <li>VIP Event</li>
+              </ul>
+              <div class="btn-wrap">
+                <a href="{% url 'purchase_package' %}" class="btn-buy">Subscribe Now</a>
+              </div>
+            </div>
+          </div>
+
+          </div>
+
+        </div>
+
+    
+    </section><!-- End Pricing Section -->
+     
+  </main><!-- End #main -->
+		
+		 <section id="facilities" class="facilities section-bg">
+      <div class="container-fluid" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Facilities</h2>
+          <h3>Find Out More <span>Facilities</span></h3>
+         <br><br>
+			  <img src="{% static 'facilities.png' %}" class="img-responsive img-fluid" style="float:center height:auto max-width:1920px width:100%" alt="facilities" />
+			</div>
+       
+	 </div>
+	</section>
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+    <div class="footer-newsletter">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <h4>Join Our Newsletter</h4>
+            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+            <form action="" method="post">
+              <input type="email" name="email"><input type="submit" value="Subscribe">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+{% if company %}
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h3>{{company.name}}<span>.</span></h3>
+            <p>
+              {{company.address|linebreaks}}<br>
+              <strong>PHONE:</strong> {{ company.telephone }}<br>
+              <strong>EMAIL:</strong> {{ company.email}}<br>
+            </p>
+          </div>
+{% endif %}			
+       <div class="col-lg-3 col-md-6 footer-links" data-aos="fade-up" data-aos-delay="100">
+
+        
+			  
+			<iframe class="mb-4 mb-lg-0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3689.4322453596915!2d114.10462750962029!3d22.375056840099003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3403f8fab146f1a5%3A0x4eb9801f49aa5af1!2sThe%20Octagon!5e0!3m2!1sen!2sus!4v1683363462583!5m2!1sen!2sus" width="200px" height="200px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+		
+
+        </div>
+			
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h5>Useful Links</h5>
+            <br>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'home' %}">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'search' %}">Search</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'faq' %}">FAQ</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'terms' %}">Terms and Conditions</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'privacy' %}">Privacy policy</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h5>Our Services</h5>
+            <br>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Dedicated Office</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Day Pass</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Hot Desk</a></li>
+          
+            </ul>
+          </div>
+
+        
+          </div>
+
+        </div>
+      </div>
+  
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+   <!-- <i class="bi bi-arrow-up-short">-->
+      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
+</svg></i></a>
+{% endblock context %}
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Vendor JS Files -->
+<script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+<script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+<script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+<script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+<script src="{% static 'assets/vendor/waypoints/noframework.waypoints.js' %}"></script>
+<script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+
+<!-- Template Main JS File -->
+<script src="{% static 'assets/js/main.js' %}"></script>
+{% endblock script %}
+
+{% comment %}
+</body>
+</html>
+{% endcomment %}

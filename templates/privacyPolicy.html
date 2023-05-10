@@ -3,7 +3,7 @@
 {% block context %}
     <div class="jumbotron">
        
-        <h1 class="display-4">PRIVACY POLICY</h1><hr style="height: 3px; color:gray;background-color:gray"">
+        <h1 class="display-4">PRIVACY POLICY</h1><hr style="height: 3px; color:gray;background-color:gray">
         <p class="lead">
             <h2>INTRODUCTION</h2>
 
@@ -65,7 +65,7 @@
             We are committed to protecting the privacy needs of children and we encourage parents and guardians to take an active role in their children’s online activities and interests. We do not knowingly collect information from children under the age of 13 and we do not target our websites to children under 13.
             <br><br>
             <h2> YOUR CHOICES AND OPTING-OUT</h2>
-            
+            {% if company %}
             We give you the choice of receiving a variety of information that complements our products and services. You can subscribe to receive certain product-and service-specific information and group-wide marketing communications. Such communications may include new product information, special offers, or an invitation to participate in market research. If you no longer wish to receive our newsletters and/or promotional communications, you may opt-out of receiving them by following the instructions included in each newsletter or communications including by contacting us at {{company.email}}. 
             <br><br>
             <h2> ACCESS TO AND ACCURACY OF YOUR INFORMATION AND YOUR OTHER RIGHTS</h2>
@@ -73,7 +73,7 @@
             In certain jurisdictions, notably in the UK and those in the EEA, in certain circumstances you have the following rights: a right of access; a right of rectification; a right of erasure; a right to restrict processing; a right of data portability; and a right to object. These rights may be limited, for example if fulfilling your request would reveal personal data about another person or breach the privacy rights of others, or if you ask us to delete information which we are required by law to keep or have compelling legitimate interests in keeping. To exercise any of these rights, please contact at {{company.email}}.  If you have unresolved concerns, you have the right to make a complaint to the data protection supervisory authority where you live, work or where you believe a breach may have occurred.
             <br><br>
             <h2> KEEPING YOUR INFORMATION SECURE</h2>
-            
+            {% endif %}
             We do not guarantee or warrant the security of our servers nor can we guarantee that information you supply through the Website will not be intercepted while being transmitted over the Internet. We follow generally accepted industry technical standards to protect the personal data submitted to us, both during transmission and once we receive it. When you enter sensitive information (such as credit card information) on our registration or order forms, we encrypt that information using secured socket layer technology. Where we process personal information for marketing purposes or with your consent, we process the data until you ask us to stop and for a short period after this (to allow us to implement your requests). We also keep a record of the fact that you have asked us not to send you direct marketing or to process your data indefinitely so that we can respect your request in the future. Where we process personal information in connection with performing a contract or providing a service, or for a competition, we keep the information for 6 years (except for financial information which we keep for 10 years) from your last interaction with us. We keep recordings of telephone calls and CCTV recordings for relatively short periods of time, as determined in accordance with our internal compliance procedures implemented from time to time.
             <br><br>
             <h2>BUSINESS TRANSITIONS </h2>

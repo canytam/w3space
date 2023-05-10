@@ -3,16 +3,18 @@
 {% block context %}
     <div class="jumbotron">
        
-        <h1 class="display-4">TERMS AND CONDITIONS</h1><hr style="height: 3px; color:gray;background-color:gray"">
+        <h1 class="display-4">TERMS AND CONDITIONS</h1><hr style="height: 3px; color:gray;background-color:gray">
         <p class="lead">
             
-
-            This page (together with the documents referred to on it) tells you the terms of use on which you may make use of our website {{ company.website }}, whether as a guest or a registered user. Please read these terms of use carefully before you start to use the site. By using our site, you indicate that you accept these terms of use and that you agree to abide by them. If you do not agree to these terms of use, please refrain from using our site.
+            {% if company %}
+            This page (together with the documents referred to on it) tells you the terms of use on which you may make use of our website {{company.website}}, whether as a guest or a registered user. Please read these terms of use carefully before you start to use the site. By using our site, you indicate that you accept these terms of use and that you agree to abide by them. If you do not agree to these terms of use, please refrain from using our site.
             <br>
 
             <h2>Information about us</h2>
-            
-            This is a site operated by {{ company.name }}. We are registered in Hong Kong with a registered company number {{ company.telephone }}. Our main trading address is {{ company.address }}. 
+
+
+            This is a site operated by {{company.long_name}}. We are registered in Hong Kong with a registered company number {{company.telephone}}. Our main trading address is {{company.address}}. 
+            {% endif %}
             <br>
             <h2>Accessing our site</h2>
             
@@ -72,16 +74,18 @@
             We process information about you in accordance with our privacy policy. By using our site, you consent to such processing and you warrant that all data provided by you is accurate.
            <br>
             <h2>Viruses, hacking and other offences</h2>
-            
+                     
             You must not misuse our site by knowingly introducing viruses, trojans, worms, logic bombs or other material which is malicious or technologically harmful. You must not attempt to gain unauthorised access to our site, the server on which our site is stored or any server, computer or database connected to our site. You must not attack our site via a denial-of-service attack or a distributed denial-of service attack.
             By breaching this provision, you would commit a criminal offence under the Computer Misuse Act 1990. We will report any such breach to the relevant law enforcement authorities and we will co-operate with those authorities by disclosing your identity to them. In the event of such a breach, your right to use our site will cease immediately.
             We will not be liable for any loss or damage caused by a distributed denial-of-service attack, viruses or other technologically harmful material that may infect your computer equipment, computer programs, data or other proprietary material due to your use of our site or to your downloading of any material posted on it, or on any website linked to it.
             <br>
+ 
             <h2>Linking to our site</h2>
-            
+            {% if company %}  
             You may link to our website, provided you do so in a way that is fair and legal and does not damage our reputation or take advantage of it, but you must not establish a link in such a way as to suggest any form of association, approval or endorsement on our part where none exists.
             If you wish to make any use of material on our site other than that set out above, please address your request to {{company.email}}
             <br>
+            {% endif %}
             <h2>Links from our site</h2>
             
             Where our site contains links to other sites and resources provided by third parties, these links are provided for your information only. We have no control over the contents of those sites or resources, and accept no responsibility for them or for any loss or damage that may arise from your use of them.
@@ -97,12 +101,12 @@
             We may revise these terms of use at any time by amending this page. You are expected to check this page from time to time to take notice of any changes we made, as they are binding on you. Some of the provisions contained in these terms of use may also be superseded by provisions or notices published elsewhere on our site.
             <br>
             <h2>Your concerns</h2>
-            
+ {% if company %}       
             If you have any concerns about material which appears on our site, please contact {{company.email}}
             Thank you for visiting our site.
-            
+{% endif %}      
             
         </p>
     </div>
 
-{% endblock %}
+{% endblock context %}

@@ -4,6 +4,8 @@ from data.utilities import update_context, total_credits
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.urls import reverse
+from django.contrib import messages
+from social_django.models import UserSocialAuth
 import json
 import datetime
 
@@ -55,10 +57,30 @@ def info(request):
     customer = Customer.objects.get(user=request.user)
     packageDetails = PackageDetails.objects.filter(customer=customer, credits__gt=0)
     bookings = Booking.objects.filter(customer=customer)
+    try:
+        google_login = customer.user.social_auth.get(provider='google-oauth2')
+    except UserSocialAuth.DoesNotExist:
+        google_login = None
+    try:
+        github_login = customer.user.social_auth.get(provider='github')
+    except UserSocialAuth.DoesNotExist:
+        github_login = None
     context = {
         'customer': customer,
         'packageDetails': packageDetails,
         'bookings': bookings,
         'credits': total_credits(customer),
+        'google_login': google_login,
+        'github_login': github_login,
     }
     return render(request, "info.html", update_context(context))
+
+def searchSpace(request):
+    if request.method == "GET":
+        name = request.GET['search_space']
+        try:
+            space = Space.objects.get(name=name)
+            return redirect(reverse('space_detail', kwargs={'pk': space.id}))
+        except Space.DoesNotExist:
+            messages.error(request, 'No matched space.')
+    return redirect(reverse('home'))

@@ -31,7 +31,7 @@ urlpatterns = [
     path('search/', include('search.urls')),
     path('about/', include('about.urls')),
     path('rent/', include('rent.urls')),
-    path('', RedirectView.as_view(pattern_name='home')),
+    path('', RedirectView.as_view(pattern_name='about')),
     path('webhooks/stripe/', views.StripeWebhookView.as_view(), name="stripe-webhook"),
     path('social-auth/', include('social_django.urls', namespace='social')),
     path('terms/', views.terms , name='terms'),

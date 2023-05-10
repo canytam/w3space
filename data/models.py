@@ -7,6 +7,7 @@ import PIL
 # Create your models here.
 class Company(models.Model):
     name = models.CharField(max_length=255)
+    long_name = models.CharField(max_length=255)
     slogan = models.CharField(max_length=255)
     about = models.TextField()
     logo = models.ImageField(upload_to='images/')
@@ -60,6 +61,7 @@ class Customer(models.Model):
 class Space(models.Model):
     name = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
+    city = models.CharField(max_length=64)
     size = models.IntegerField()
     photo = models.ImageField(upload_to='images/')
     credits = models.IntegerField()

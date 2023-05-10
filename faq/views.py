@@ -26,7 +26,8 @@ def contact(request):
                 message=message
             )
             contact.save()
-            return render(request, 'success.html') 
+            context = { }
+            return render(request, 'success.html', update_context(context)) 
     form = ContactForm()
     context = {'form': form}
     return render(request, 'contact.html', update_context(context))
