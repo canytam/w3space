@@ -14,7 +14,7 @@ def index(request):
     
     bkDyLs = {}
     spaces = Space.objects.all()
-    for i in range(9):
+    for i in range(len(spaces)):
         avDy =[]
         rmLs = spaces[i].booking_set.all()
         
@@ -25,12 +25,13 @@ def index(request):
     
         for wkDy in wkLs:
             if wkDy not in rmDyLs:
-                wkDyStr = str(int(wkDy/100)) + "/" + str(wkDy - int(wkDy/100)*100)
+                wkDyStr =  str(wkDy - int(wkDy/100)*100) + "/" + str(int(wkDy/100))
                 avDy.append(wkDyStr)
                                    
-        bkDyLs[i+1]=avDy
+        #bkDyLs[i+1]=avDy
+        bkDyLs[spaces[i].id]=avDy
         
-       
+    print(bkDyLs)   
     context = {
         'space': spaces,
         'bookLs' : bkDyLs,

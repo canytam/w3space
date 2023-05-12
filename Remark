@@ -24,3 +24,5 @@
 5) To create the view:
     Delete the line 'pass' and replace with your code
 
+6   To start in HTTPS
+    python manage.py runserver_plus --cert-file cert.pem --key-file key.pem

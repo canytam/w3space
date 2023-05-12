@@ -7,6 +7,7 @@ urlpatterns = [
     path('success/', views.successView, name='success'),
     path('cancel/', views.cancelView, name='cancel'),
     path('userlogin/', views.custom_login, name='userlogin'),
+    path('userlogin/', views.custom_login, name='login'),
     path('password-reset', views.MyPasswordResetView.as_view(), name="password-reset"),
     path('password-reset/done/', views.MyPasswordResetDoneView.as_view(), name="password_reset_done"),
     path('password-reset-confirm/<uidb64>/<token>/', views.MyPasswordResetConfirmView.as_view(), name='password_reset_confirm'),

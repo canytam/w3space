@@ -8,6 +8,8 @@
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="co-working company" name="description">
         <meta content="co-working, space, rent, service" name="keywords">
+        {% block style %}
+        {% endblock %}
 
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -29,8 +31,6 @@
         <link rel="apple-touch-icon" href="{% static 'icon/apple-touch-icon.png' %}"><!-- 180×180 -->
         <link rel="manifest" href="{% static 'icon/site.webmanifest' %}">
 
-        {% block style %}
-        {% endblock %}
 
         {% comment %}
         <style>

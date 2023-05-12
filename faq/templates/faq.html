@@ -9,6 +9,14 @@
           $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
       });
+
+      $("#resetInput").on("click", function() {
+        $("#myInput").val("");
+        $("#myInput").trigger("keyup");
+        $(".collapse").filter(function() {
+            $(this).collapse('hide');
+        });
+      });
     });
   </script>
 {% endblock %}
@@ -22,14 +30,7 @@
         <input name="utf8" type="hidden" value="✓" />
         <div class="wt-input-btn-group header-search-bg">        
           <input id="myInput" type="text" placeholder="Search..">
-          <!--button type="reset" class="wt-input-btn-group__btn" value="Reset" aria-label="Search">
-            <span class="etsy-icon icon-search wt-nudge-b-1">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M10,18a8,8,0,1,1,8-8A8.009,8.009,0,0,1,10,18ZM10,4a6,6,0,1,0,6,6A6.007,6.007,0,0,0,10,4Z"/>
-                <path d="M21,22a1,1,0,0,1-.707-0.293l-4-4a1,1,0,0,1,1.414-1.414l4,4A1,1,0,0,1,21,22Z"/>
-              </svg>
-            </span>
-          </button-->
+          <input type="button" id="resetInput" class="wt-input-btn-group__btn" aria-label="Search" value='Reset'></button>
         </div>
       </form>
     </div>
@@ -38,88 +39,33 @@
 <br><br><br><br>
 
 <div id="myDIV">
-  <h3>    Top FAQ </h3>
-  <ul class="list-group">
-    <li class="list-group-item">
-      <h3>Membership</h3>
-    </li>
-
-    <div id="accordion" role="tablist">
-      <div class="card">
-        <div class="card-header" role="tab" id="headingOne">
-          <h5 class="mb-0">
-            <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="">
-              <p class="text-body">When can I access a location? What are W3Space's opening hours?</p>
-            </a>
-          </h5>
-        </div>
-      
-        <div id="collapseOne" class="collapse hide" role="tabpanel" aria-labelledby="headingOne" style="">
-          <div class="card-body">
-                The Community team is generally on-site at each location on local weekdays during business hours - between 9 AM and 6 PM.
-    
-    If you have a Private Office or a Dedicated Desk at a W3Space location, you have 24/7 access to that location.
-    
-    Other members need to book a meeting room or coworking space to access W3Spacelocations.
-          </div>
-        </div>
-      </div>
+    <h3>&nbsp&nbspTop FAQ </h3>
+    <ul class="list-group">
       <div id="accordion" role="tablist">
-        <div class="card">
-          <div class="card-header" role="tab" id="headingTwo">
-            <h5 class="mb-0">
-              <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                <p class="text-body">Am I able to move to another W3Space location?</p>
-              </a>
-            </h5>
-          </div>
-          <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-            <div class="card-body">
-                Yes.
-    You can work in different W3Space locations by booking coworking spaces or meeting rooms, subject to availability.
-            </div>
-          </div>
-        </div>
-      </div>
-      <li class="list-group-item">
-        <h3>Operation</h3>
-      </li>
+        {% for question in faq %}
+            {% ifchanged question.category %}
+                <li class="list-group-item">
+                    <h3>{{ question.category }}</h3>
+                </li>
+            {% endifchanged %}
 
-      <div id="accordion" role="tablist">
-        <div class="card">
-          <div class="card-header" role="tab" id="headingThree">
-            <h5 class="mb-0">
-              <a data-toggle="collapse" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree" class="">
-                <p class="text-body"> What is W3Space’s cancellation policy?</p>
-              </a>
-            </h5>
-          </div>
-      
-          <div id="collapseThree" class="collapse hide" role="tabpanel" aria-labelledby="headingThree" style="">
-            <div class="card-body">
-                For shared working space, you should cancel 3 days in advance online or by call; for meeting room and VIP room, cancellation should be done 7 days in advance.
-            </div>
-          </div>
-        </div>
-        <div id="accordion" role="tablist">
-          <div class="card">
-            <div class="card-header" role="tab" id="headingFour">
-              <h5 class="mb-0">
-                <a class="collapsed" data-toggle="collapse" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                  <p class="text-body">Is printing service offered?</p>
-                </a>
-              </h5>
-            </div>
-            <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour">
-              <div class="card-body">
-                Yes, we offer printing service with charge.
-              </div>
-            </div>
-          </div>
-        </div>
+                <div class="card">
+                    <div class="card-header" role="tab" id="heading{{ forloop.counter }}">
+                        <h5 class="mb-0">
+                            <a data-toggle="collapse" href="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapse{{ forloop.counter }}" class="collapsed">
+                                <p class="text-body">{{ question.question }}</p>
+                            </a>
+                        </h5>
+                    </div>
+    
+                    <div id="collapse{{ forloop.counter }}" class="collapse" data-parent="#accordion" role="tabpanel" aria-labelledby="heading{{ forloop.counter }}" style="">
+                        <div class="card-body">{{ question.answer }}</div>
+                    </div>
+                </div>
+            
+        {% endfor %}
       </div>
-    </div>
-  </ul>
+    </ul>
 </div> 
 <br><br><br>
          

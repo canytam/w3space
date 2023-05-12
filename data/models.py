@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.timezone import now
 from datetime import date
+
 import PIL
 
 # Create your models here.
@@ -24,9 +25,12 @@ class Faq(models.Model):
     category = models.CharField(max_length=64)
     question = models.CharField(max_length=255)
     answer = models.TextField()
-
+ 
+    class Meta:
+        ordering = ["category", "question"]
+        
     def __str__(self):
-        return self.question
+        return self.category+" : "+self.question
     
 class Package(models.Model):
     name = models.CharField(max_length=255)
@@ -61,13 +65,18 @@ class Customer(models.Model):
 class Space(models.Model):
     name = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
+    area = models.CharField(max_length=255)
     city = models.CharField(max_length=64)
     size = models.IntegerField()
     photo = models.ImageField(upload_to='images/')
     credits = models.IntegerField()
+    is_space = models.BooleanField(default=True)
     has_coffeemaker = models.BooleanField(default=False)
     has_notebook = models.BooleanField(default=False)
     
+    class Meta:
+        ordering = ["name"]
+        
     def __str__(self):
         return self.name
 
@@ -113,3 +122,10 @@ class Contact(models.Model):
     
     def __str__(self):
         return str(self.email)
+    
+class SubscribedUsers(models.Model):
+    email = models.EmailField(unique=True, max_length=100)
+    created_date = models.DateTimeField('Date created', default=now)
+    
+    def __str__(self):
+        return self.email

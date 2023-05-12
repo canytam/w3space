@@ -308,23 +308,28 @@
 
 
         <div class="row">
-
+          {% for package in packages %}
           <div class="col-lg-4 col-md-4" data-aos="fade-up" data-aos-delay="100">
-            <div class="box">
-              <h3>Basic</h3>
-              <h4><sup>$</sup>3000<span> / package</span></h4>
+            <div class="box {% if forloop.counter == 2 %}featured{% endif %}">
+              {% if forloop.counter == 3 %}
+  		          <span class="advanced">Advanced</span>
+              {% endif %}
+              <h3>{{ package.name }}</h3>
+              <h4><sup>$</sup>{{ package.price }}<span> / package</span></h4>
               <ul>
-                <li>Credit: <span> 30</span></li>
-                <li>Duration: <span>30</span></li>
-                <li class="na">Secretary Service</li>
-                <li class="na">VIP Event</li>
+                <li>Credit: <span> {{ package.credits }}</span></li>
+                <li>Duration: <span> {{ package.duration }} days</span></li>
+                <li class="{% if forloop.counter < 2 %}na{% endif %}">Secretary Service</li>
+                <li class="{% if forloop.counter < 3 %}na{% endif %}">VIP Event</li>
               </ul>
               <div class="btn-wrap">
                 <a href="{% url 'purchase_package' %}" class="btn-buy">Subscribe Now</a>
               </div>
             </div>
           </div>
+          {% endfor %}
 
+          {% comment %}
           <div class="col-lg-4 col-md-4 mt-4 mt-md-0" data-aos="fade-up" data-aos-delay="200">
             <div class="box featured">
               <h3>Normal</h3>
@@ -343,7 +348,7 @@
 
           <div class="col-lg-4 col-md-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="300">
             <div class="box">
-		  <span class="advanced">Advanced</span>
+		          <span class="advanced">Advanced</span>
               <h3>Deluxe</h3>
               <h4><sup>$</sup>8100<span> / package</span></h4>
               <ul>
@@ -357,7 +362,7 @@
               </div>
             </div>
           </div>
-
+          {% endcomment %}
           </div>
 
         </div>
@@ -388,7 +393,8 @@
           <div class="col-lg-6">
             <h4>Join Our Newsletter</h4>
             <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-            <form action="" method="post">
+            <form action="{% url 'subscribe' %}" method="post">
+              {% csrf_token %}
               <input type="email" name="email"><input type="submit" value="Subscribe">
             </form>
           </div>
