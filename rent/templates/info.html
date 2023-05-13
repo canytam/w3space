@@ -1,15 +1,17 @@
 {% extends "base_site.html" %}
 
 {% block context %}
-    <h4>Name: {{ customer.user.username }}  <input type='button' onclick="window.location.href='{% url 'password-change' %}';" value='Change Password'></input></h4>
+    <h4>Name: {{ customer.user.username }}
     {% if github_login %}
     {% else %}
         {% if google_login %}
         {% else %}
+            <input type='button' onclick="window.location.href='{% url 'password-change' %}';" value='Change Password'></input></h4>
             <h4>Gender: {% if customer.gender == 'M' %}Male{% else %}Female{% endif %}</h4>
-            <h4>Telephone: {{ customer.telephone }}</h4>
+            <h4>Telephone: {{ customer.telephone }}
         {% endif %}
     {% endif %}
+    </h4>
     <h4>Date joined: {{ customer.user.date_joined | date:"M d, Y" }}</h4>
     <form action="{% url 'create-checkout-session' customer.id %}" method="POST">
         {% csrf_token %}
