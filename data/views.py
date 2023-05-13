@@ -11,6 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm
@@ -75,11 +76,10 @@ class StripeWebhookView(View):
             return HttpResponse(status=400)
         
         if event["type"] == "checkout.session.completed":
-            print("Payment successful")
             session = event["data"]["object"]
             customer_id = session["metadata"]["customer_id"]
             customer = Customer.objects.get(id=customer_id)
-            customer.balance += unit_amount
+            customer.balance += int(session["metadata"]["unit_amount"]) * int(session["metadata"]["quantity"])
             customer.save()
         
         return HttpResponse(status=200)
@@ -92,7 +92,7 @@ class CreateStripeCheckoutSessionView(View):
             cancel_url = settings.PAYMENT_CANCEL_URL,
             payment_method_types = ['card'],
             mode = 'payment',
-            metadata = {"customer_id": customer.id},
+            metadata = {"customer_id": customer.id, "unit_amount": unit_amount, "quantity": 1},
             line_items = [
                 {
                     'price_data': {
