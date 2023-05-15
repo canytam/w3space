@@ -51,7 +51,10 @@ def register(request):
             return redirect('/')
         else:
             for key, error in list(form.errors.items()):
-                messages.error(request, f'{key}: {error}')
+                if key == 'captcha' and error[0] == 'This field is required.':
+                    messages.error(request, "You must pass the reCAPTCHA test.")
+                    continue
+                messages.error(request, error)
     else:
         form = UserRegistrationForm()
       
@@ -137,6 +140,8 @@ def custom_login(request):
                 return redirect(reverse_lazy('info'))
         else:
             for key, error in list(form.errors.items()):
+                print(key)
+                print(error)
                 if key == 'captcha' and error[0] == 'This field is required.':
                     messages.error(request, "You must pass the reCAPTCHA test")
                     continue

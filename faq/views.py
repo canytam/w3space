@@ -1,6 +1,7 @@
 from django.shortcuts import render,HttpResponse
 from data.utilities import update_context
 from data.models import Company, Faq, Contact
+from django.contrib import messages
 from .forms import ContactForm
 
 
@@ -28,6 +29,11 @@ def contact(request):
             contact.save()
             context = { }
             return render(request, 'success.html', update_context(context)) 
+        else:
+            for key, error in list(form.errors.items()):
+                messages.error(request, error)
+                print(error)
+
     form = ContactForm()
     context = {'form': form}
     return render(request, 'contact.html', update_context(context))

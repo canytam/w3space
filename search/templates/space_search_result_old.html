@@ -1,0 +1,30 @@
+{% extends 'base_site.html' %}
+
+{% block context %}
+{% load static %}
+<br>
+<h3>Search result as below:</h3>
+{% for space in space %}
+    <h4>{{ space.name }}</h4>
+    <p>{{ space.address }}</p>
+    <p>Size in Sq. ft. : {{ space.size }}</p>
+
+    <p>  Credits Required : {{ space.credits }}</p>
+    <img src="{{ space.photo.url }}" alt="Photo" class='rounded' width="40%" height="auto" /><br>
+    
+    <tbody>
+        {% for key, values in bookLs.items %}
+            {% if key == space.id %}
+                <P> {{values}} Here are the date(s) available in next 10 days</p>
+            {% endif %}
+        {% endfor %}   
+                
+    </tbody>
+         
+    <a href="{% url 'space_detail' pk=space.id %}">To Rent Detail<br>
+    </a>
+    <br>
+    <hr>
+{% endfor %}          
+<br>
+{% endblock%}

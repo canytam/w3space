@@ -6,5 +6,5 @@ class PurchasePackageForm(forms.Form):
     choice = []
     for package in packages:
         choice.append((package.id, package.name))   
-    purchased_package = forms.ChoiceField(choices=choice)
+    purchased_package = forms.ChoiceField(choices=choice, label="Package")
     

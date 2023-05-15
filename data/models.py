@@ -111,7 +111,7 @@ class CleanUp(models.Model):
         ordering = ['-date']
         
     def __str__(self):
-        return self.date.strftime("%Y-%m-%d")
+        return self.date.strftime("%Y-%m-%d")+" : "+str(self.credits)
     
 class Contact(models.Model):
     name = models.CharField(max_length=250)

@@ -2,9 +2,22 @@
 {% load static %}
 
 {% block context %}	
+
+  {% comment %} <!-- Template Main CSS File -->
+  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" > {% endcomment %}
+
+<body>
+      <div class="section-title">
+        <h2>Login</h2>
+        <h3>Welcome to <span>{{company.name}}</span></h3>
+        <p>Login to book viewings, see your schedules, reports, and use filters to sort your space that suits you.</p>
+      </div>
+  
   <!-- Section: Design Block -->
-  <section class="vh-100">
-    <div class="container py-5 h-100">
+  <section class="vh-auto" style="
+  margin-top: -60px;
+  ">
+    <div class="container py-0 h-auto">
       <div class="row d-flex align-items-center justify-content-center h-100">
         <div class="col-md-8 col-lg-7 col-xl-6">
           <img src="https://theheartylife.com/wp-content/uploads/2018/09/32cceb4f8f307266e67b2a842d3544e7.jpg"
@@ -14,28 +27,32 @@
           <form method='post' action=''>
             {% csrf_token %}    
             <!-- Username input -->
-            <div class="form-outline mb-4">
+            <div class="form-outline mb-1">
               {{ form.username }}
-              <label class="form-label" for="form1Example13" placeholder="xxxxxxxx">Username</label>
+              <label class="form-label" for="form1Example13" placeholder="xxxxxxxx">&nbsp &nbsp  Username</label>
             </div>
 
             <!-- Password input -->
-            <div class="form-outline mb-4">
+            <div class="form-outline mb-1">
               {{ form.password }}
-              <label class="form-label" for="form1Example23" placeholder="xxxxxxxx">Password</label>
+              <label class="form-label" for="form1Example23" placeholder="xxxxxxxx">&nbsp &nbsp Password</label>
             </div>
-            {{ form.captcha }}
-            <br>
             <div class="d-flex justify-content-around align-items-center mb-4">
+            {{ form.captcha }}
+        
+          </div>
               <!-- Add a Remember me functionality -->
               <!-- Checkbox -->
-              <div class="form-check">
+              <div class="form-check d-flex justify-content-around align-items-center mb-4">
+                <tr>
+                  <td>
+                    <label class="form-check-label" for="form1Example3"> Remember me </label>
                 {{ form.remember_me }}
-                <label class="form-check-label" for="form1Example3"> Remember me </label>
-              </div>
+              
+                  </td><td>
               <a href="{% url 'password-reset' %}"><i>Forgot Password?</i></a>
-            </div>
-
+                  </td>
+            </tr></div>
             <!-- Submit button -->
             <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
             <input type="hidden" name="next" value="{{ next }}">
@@ -62,5 +79,7 @@
         </div>
       </div>
     </div>
+  </div>
   </section>
 {% endblock %}
+</body>

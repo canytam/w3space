@@ -1,9 +1,12 @@
 {% extends 'base_site.html' %}
 
 {% block context %}
-<h3 style="text-align: center; color: black;"></h3 style>
-    <h2>Dear customer:</h2>
+<h3 style="text-align: left; color: black; font-family: "Roboto", sans-serif; font-weight: 500;
+font-size: 16px;">
+    <p>Dear Customer:</p>
 
-    <h2>Thanks for the message. Our team will get back to you within 24hrs. </h2>
-    <h2> You can send another in the <a href=" {% url 'contact' %}">Contact Page</a></h2>
+    <p>Thanks for the message. Our team will get back to you within 24hrs. </p>
+    <p>If you do not receive our respond, please feel free to contact us again at <a href=" {% url 'contact' %}">Contact Page</a></p>
+<br>
+</h3 style>
 {% endblock %}

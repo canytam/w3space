@@ -78,6 +78,8 @@ class UserRegistrationForm(UserCreationForm):
             attrs={'class': 'form-control', 'tabindex': '5', 'placeholder': 'Password Again'}
         )
     )
+
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox(), required=True)
    
     class Meta:
         model = get_user_model()

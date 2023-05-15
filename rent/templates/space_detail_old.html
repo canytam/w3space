@@ -1,0 +1,217 @@
+{% extends 'base_site.html' %}
+
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/jsCalendar.min.css' %}">
+{% endblock %}
+
+{% block context %}
+    <div class='row'>
+        <div class='col-sm-4' >
+            <div class='material-theme'>
+                <div id='rentCalendar'></div>
+                <div>
+                    <table class='table table-bordered'>
+                        <tr>
+                            <td id='instruction'>
+                                <p>Instructions:</p>
+                                <p>Click to toggle booking.</p>
+                                <p>You can book a space with 90 days.</p>
+                                <p>If the data do not show, it means the space is unavailable.</p>          
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class='col-sm-4' >
+            <table class='table table-bordered tbale-sm'>
+                <tr>
+                    <td class='text-center'>
+                        <h4>{{ space.name }}</h4>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="{{ space.photo.url }}" alt="Photo" class='rounded' width="100%" height="auto" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>{{ space.address }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Size : {{ space.size }} sq. ft.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Credits Required : {{ space.credits }}</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class='col-sm-4'>
+            <table id='rentTable' class='table text-center' hidden='hidden'>
+                <thead class='thead-light'>
+                    <tr>
+                        <th>Selected Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div id='rentList'></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <form method="POST" id="post-form">
+                                {% csrf_token %}
+                                <input type='hidden' id='selectedDate' name='selectedDate'></input>
+                                <button id='confirmButton' type='submit' class='btn btn-primary'>Confirm</button>
+                                <input id='resetButton' type='button' value='Reset' class='btn btn-primary'></button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endblock %}
+    {% block script %}
+    <script src="{% static 'js/jsCalendar.min.js' %}"></script>
+    <script type="text/javascript">
+        var calendar = document.getElementById('rentCalendar');
+        var confirmButton = document.getElementById('confirmButton');
+        var resetButton = document.getElementById('resetButton');
+        var rentTable = document.getElementById('rentTable');
+        var rentList = document.getElementById('rentList');
+        var min = new Date("{{ today }}");
+        var max = new Date("{{ endday }}");
+        var myCalendar = jsCalendar.new({ target: calendar, min: min, max: max });
+        const booked = [
+            {% for booking in bookings %}
+                new Date("{{ booking.date }}"),
+            {% endfor %}
+        ];
+        const packages = [
+            {% for package in packages %}
+                {
+                    date: new Date("{{ package.dueDate }}"),
+                    credits: {{ package.credits }}
+                },
+            {% endfor %}
+        ];
+
+        function checkCredit() {
+            credits = 0;
+            creditsAvailable = 0;
+            packageIndex = 0;
+            selectedDate = myCalendar.getSelected({sort: "asc", type: "YYYY-MM-DD"});
+            for (var i=0; i<selectedDate.length; i++) {
+                credits += {{ space.credits }};
+                while (credits > creditsAvailable) {
+                    if (packageIndex < packages.length) {
+                        creditsAvailable += packages[packageIndex].credits;
+                        packageIndex += 1;
+                    } else
+                        return false;
+                }
+                if (selectedDate[i] > packages[packageIndex-1].date)
+                    return false;
+            }
+            return true;
+        };
+
+        myCalendar.onDateClick(function(event, date) {
+            {% if user.is_authenticated %}
+            if (packages.length == 0) {
+                alert("You have no credit!");
+                return;
+            };
+            if ((date > min) && (date <= max)) {
+                for (var i=0; i<booked.length; i++) {
+                    if (date.getTime() == booked[i].getTime())
+                        return;
+                    else if (date < booked[i])
+                        break;
+                }
+                if (myCalendar.isSelected(date)) {
+                    myCalendar.unselect(date);
+                } else {
+                    myCalendar.select(date);
+                    if (!checkCredit()) {
+                        myCalendar.unselect(date);
+                        alert("You don't have enough credits.");
+                    }
+                }
+                let selectedList = myCalendar.getSelected({sort: "asc", type: "YYYY-MM-DD"});                
+                var text = "";
+                for (let i=0; i < selectedList.length; i++) {
+                    text += selectedList[i] + "<br>";
+                }
+                if (selectedList.length > 0)
+                    rentTable.removeAttribute('hidden');
+                else 
+                    rentTable.setAttribute('hidden', 'hidden');
+                rentList.innerHTML = text;
+            }
+            {% else %}
+            alert("If you are our customer, please login first.\nOr you can sign up to be our customer.");
+            {% endif %}
+        });
+
+        myCalendar.onDateRender(function(date, calendar, info) {            
+            if ((date < min) || (date > max)) {
+                calendar.style.color = "#ffffff";
+                return;
+            } else if (myCalendar.isSelected(date)) 
+                calendar.style.color = '#ff0000';
+            else {
+                for (var i=0; i<booked.length; i++) {
+                    if (date.getTime() == booked[i].getTime()) {
+                        calendar.style.color = "#ffffff";
+                        return;
+                    } else if (date < booked[i]) {
+                        return;
+                    }
+                }
+            }
+        });
+
+        $(document).ready(function() {
+            $('#post-form').on('submit', function(e) {
+                e.preventDefault(); 
+                rentTable.setAttribute('hidden', 'hidden');
+
+                fetch('{% url "space_detail" space.id %}', 
+                    {
+                        method: "POST", 
+                        headers: {"X-Requested-With": "XMLHttpRequest", "X-CSRFToken": "{{csrf_token}}"},
+                        body: JSON.stringify({selectedDate: myCalendar.getSelected({sort: "asc", type: "YYYY-MM-DD"})})
+                    }
+                ) 
+                .then(response => {
+                    response.json();
+                    if (response.status == 200)
+                        window.location.href = "{% url 'info' %}";
+                }) 
+                .then(data => { 
+                    console.log(data);
+                }) 
+                myCalendar.clearSelected();
+            });
+        });  
+
+        resetButton.addEventListener("click", function() {
+            myCalendar.clearSelected();
+            rentTable.setAttribute('hidden', 'hidden');
+        }, false);
+
+        myCalendar.refresh();
+    </script>
+{% endblock %}

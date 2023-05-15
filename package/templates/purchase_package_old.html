@@ -1,0 +1,49 @@
+{% extends 'base_site.html' %}
+
+{% block context %}
+<div class="row">
+    <div class="col-sm-4">
+        <h3>Purchase Package</h3>
+        <form action="" method="post">
+            <table>
+                <tr>
+                    <td>Credits remain</td>
+                    <td>{{ credits }}</td>
+                </tr>
+                <tr>
+                    <td>Balance</td>
+                    <td>${{ customer.balance }}</td>
+                </tr>
+                {% csrf_token %}
+                {{ form.as_table }}
+                <tr>
+                    <td><input type="submit" value="Buy" /></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div class="col-sm-8">
+        <table class='table table-bordered text-center'>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Credits</th>
+                    <th>Duration</th>
+                    <th>Price</th>
+                </tr>            
+            </thead>
+            <tbody>
+                {% for package in packages%}
+                    <tr {% if customer.balance < package.price %}class='text-danger' style='text-decoration: line-through'{% endif %}>
+                        <td>{{ package.name }}</td>
+                        <td>{{ package.credits }}</td>
+                        <td>{{ package.duration }} days</td>
+                        <td>${{ package.price }}</td>
+                    <tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<br>
+{% endblock%}

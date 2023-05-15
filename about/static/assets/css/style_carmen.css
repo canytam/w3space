@@ -1,10 +1,3 @@
-/**
-* Template Name: BizLand
-* Updated: Mar 10 2023 with Bootstrap v5.2.3
-* Template URL: https://bootstrapmade.com/bizland-bootstrap-business-template/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
 
 /*--------------------------------------------------------------
 # General
@@ -198,6 +191,11 @@ h6 {
   margin-top: 70px;
 }
 
+
+
+
+
+
 /*--------------------------------------------------------------
 # Navigation Menu
 --------------------------------------------------------------*/
@@ -357,8 +355,23 @@ h6 {
     display: block;
   }
 
+@media screen and (max-width: 667px) {
+    .mobile-nav-toggle {
+        display: block;
+    }
+    .navbar {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 667px) {
+  .navbar {
+    display: block!important;
+  }
+}
+
   .navbar ul {
-    display: none;
+    display: block;
   }
 }
 
@@ -500,7 +513,7 @@ h6 {
   font-weight: 400;
 }
 
-#hero .btn-get-started {
+#hero  .btn-get-started {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   font-weight: 500;
@@ -841,7 +854,10 @@ section {
 --------------------------------------------------------------*/
 .counts {
   padding: 70px 0 60px;
+  
 }
+
+
 
 .counts .count-box {
   padding: 30px 30px 25px 30px;
@@ -849,6 +865,8 @@ section {
   position: relative;
   text-align: center;
   background: #f1f6fe;
+  
+  
 }
 
 .counts .count-box i {
@@ -868,6 +886,7 @@ section {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+ 
 }
 
 .counts .count-box span {
@@ -884,6 +903,9 @@ section {
   font-size: 14px;
 }
 
+.counts .count-box i {
+  overflow: hidden;
+}
 /*--------------------------------------------------------------
 # Clients
 --------------------------------------------------------------*/
@@ -1450,6 +1472,9 @@ padding-left: 12px;
   color: #444444;
 }
 
+
+
+
 @media (max-width: 768px) {
 
   #footer .copyright,
@@ -1458,4 +1483,56 @@ padding-left: 12px;
     text-align: center;
     padding: 2px 0;
   }
+}
+
+/*--------------------------------------------------------------
+# faq Page
+--------------------------------------------------------------*/
+
+#faq  .btn-get-started {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 15px 28px;
+  border-radius: 4px;
+  transition: 0.5s;
+  color: #fff;
+  background: #061450;
+}
+
+#faq .btn-get-started:hover {
+  background: #247cf0;
+}
+
+#faq p {
+  padding: 15px 28px;
+}
+
+/*--------------------------------------------------------------
+# contact Page
+--------------------------------------------------------------*/
+
+#contact  .btn-get-started {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 4px;
+  transition: 0.5s;
+  color: #fff;
+  background: #061450;
+}
+
+#contact .btn-get-started:hover {
+  background: #247cf0;
+}
+
+#contact p {
+  padding: 10px 20px;
 }

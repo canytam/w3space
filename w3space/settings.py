@@ -193,6 +193,7 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
 }
 
+# Stripe api
 STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
 STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
 STRIPE_WEBHOOK_SECRET = config('STRIPE_WEBHOOK_SECRET')
@@ -200,10 +201,12 @@ BACKEND_DOMAIN = 'http://127.0.0.1:8000/accounts'
 PAYMENT_SUCCESS_URL = BACKEND_DOMAIN + '/success/'
 PAYMENT_CANCEL_URL = BACKEND_DOMAIN + '/cancel/'
 
+# Google reCAPTCHA api
 RECAPTCHA_PUBLIC_KEY = config('RECAPTCHA_PUBLIC_KEY')
 RECAPTCHA_PRIVATE_KEY = config('RECAPTCHA_PRIVATE_KEY')
 SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
 
+# email setting - google smtp api
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True

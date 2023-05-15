@@ -1,0 +1,9 @@
+{% extends 'base_site.html' %}
+
+{% block context %}
+<h3 style="text-align: center; color: black;"></h3 style>
+    <h2>Dear customer:</h2>
+
+    <h2>Thanks for the message. Our team will get back to you within 24hrs. </h2>
+    <h2> You can send another in the <a href=" {% url 'contact' %}">Contact Page</a></h2>
+{% endblock %}
