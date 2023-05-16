@@ -45,9 +45,6 @@ def space_search(request):
         size = request.POST['size']
         with_cof = request.POST['with_cof']
         with_nb = request.POST['with_nb']
-        ##with_nbk = request.POST['with_nbk']
-        #spaces = Space.objects.filter(Q(name__icontains=sp_cat) &Q(address__icontains=address) 
-        #                              &Q(size__icontains=size) &Q(has_coffeemaker=with_cof))
         spaces = Space.objects.all()
         print("Coffee ", with_cof)
         print(spaces.values())

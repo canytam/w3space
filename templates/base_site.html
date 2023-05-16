@@ -115,7 +115,7 @@
                     <div class="text-center">{{ company.address }}</div>
                     <div class="text-center">Tel : {{ company.telephone }}</div>
                     <div class="text-center">Email : {{ company.email }}</div>
-                    <div class="text-center">Website : <a href="{{ company.website }}">www.w3space.com</a></div>
+                    <div class="text-center">Website : <a href="{{ company.website }}">www.w3Space.com</a></div>
                 {% endif %}
                 <div class="w3-xlarge w3-section">
                     <i class="fa fa-facebook-official w3-hover-opacity"></i>
@@ -142,7 +142,7 @@
         <script>
             function search_space() {
                 name = document.getElementById('search_space').value;
-                window.location.href="{% url 'search_space' %}?search_space="+name;
+                window.location.href="{% url 'search_space' %}?search_space="+name.toUpperCase();
             }
         </script>
         {% block script %}

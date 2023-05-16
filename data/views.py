@@ -40,7 +40,7 @@ def privacy(request):
 # Create your views here.
 def register(request):
     if request.user.is_authenticated:
-        return redirect("/")
+        return redirect("info")
     
     if request.method == "POST":
         form = UserRegistrationForm(request.POST)
@@ -48,7 +48,7 @@ def register(request):
             user = form.save()
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             messages.success(request, f"New account created: {user.username}")
-            return redirect('/')
+            return redirect('info')
         else:
             for key, error in list(form.errors.items()):
                 if key == 'captcha' and error[0] == 'This field is required.':
