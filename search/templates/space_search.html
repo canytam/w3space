@@ -90,7 +90,7 @@
     </select><br>
 
 
-    <input type="submit" value="Submit">
+    <input type="submit" value="Search">
 </form>
 {% if spaces %}
 <br><hr><br>
@@ -106,14 +106,15 @@
     <tbody>
         {% for key, values in bookLs.items %}
             {% if key == space.id %}
-                <P> {{values}} Here are the date(s) available in next 10 days</p>
+                <P> {{values | linebreaks}} Here are the date(s) available in next 7 days</p>
             {% endif %}
         {% endfor %}   
                 
     </tbody>
          
-    <a href="{% url 'space_detail' pk=space.id %}">To Rent Detail<br>
-    </a>
+    <!--a href="{% url 'space_detail' pk=space.id %}">To Rent Detail<br>
+    </a-->
+    <a href="{% url 'space_detail' pk=space.id %}" class="btn btn-primary btn-md" > Details</a> 
     <br>
     <hr>
 {% endfor %}     
